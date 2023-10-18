@@ -42,3 +42,10 @@ function loadMore() {
   end += 10;
   getPokemons();
 }
+
+function searchPokemon() {
+  let search = document.getElementById('inputValue').value;
+  search = search.toLowerCase();
+  console.log(search);
+
+}

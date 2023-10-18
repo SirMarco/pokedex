@@ -18,7 +18,14 @@
 
 </head>
 
-<body onload="init()">
+<body onload="">
+  <div>
+    <form onsubmit=" searchPokemon()">
+      <input id="inputValue" type="text" required placeholder="Bitte Namen eingeben...">
+      <button>Search</button>
+    </form>
+  </div>
+
   <main>
     <div id="cards" class="cards">
 
