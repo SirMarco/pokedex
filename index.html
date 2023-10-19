@@ -18,17 +18,18 @@
 
 </head>
 
-<body onload="">
+<body onload="init()">
+  <h1>Pokemon</h1>
   <div>
-    <form onsubmit=" searchPokemon()">
-      <input id="inputValue" type="text" required placeholder="Bitte Namen eingeben...">
-      <button>Search</button>
-    </form>
+
+    <input id="inputValue" type="text" placeholder="Bitte Namen eingeben...">
+    <button onclick="searchPokemon()">Search</button>
+
   </div>
 
   <main>
     <div id="cards" class="cards">
-
+      aa
     </div>
 
     <button onclick="loadMore()">Load more</button>
