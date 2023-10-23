@@ -1,7 +1,33 @@
 let allPokemons = [];
 let searchPokemonArray = [];
+let searchPokemonArrayResult = [];
 let start = 1;
 let end = 5;
+
+const TYPECOLORS = {
+  normal: '#C6C6A7',
+  fire: '#F5AC78',
+  water: '#9DB7F5',
+  electric: '#FAE078',
+  grass: '#A7DB8D',
+  ice: '#BCE6E6',
+  fighting: '#D67873',
+  poison: '#C183C1',
+  ground: '#EBD69D',
+  flying: '#A890F0',
+  psychic: '#FA92B2',
+  bug: '#C6D16E',
+  rock: '#D1C17D',
+  ghost: '#A292BC',
+  dragon: '#A27DFA',
+  dark: '#A29288',
+  steel: '#D1D1E0',
+  fairy: '#F4BDC9',
+};
+
+
+
+
 
 async function init() {
   for (let i = start; i <= end; i++) {
@@ -29,26 +55,33 @@ async function searchPokemon() {
   let response = await fetch(`https://pokeapi.co/api/v2/pokemon/?limit=1000`);
   try {
     let data = await response.json();
-    cards.innerHTML = '';
     let results = '';
+    cards.innerHTML = '';
+    searchPokemonArray = [];
+    searchPokemonArrayResult = [];
+    
 
     for (let j = 0; j < data.results.length; j++) {
       let pokemon = data.results[j];
       if (pokemon.name.includes(search)) {
         searchPokemonArray.push(pokemon.name);
-        console.log(fetchPokemon(pokemon.name));
-        results += `${pokemon['name']}
-        <a>${pokemon['id']}</a>`;
-
-        /*results += `
-          <div id="card${[j + 1]}" class="card">
-            <h1>${pokemon['name']}</h1>
-            <img src='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${[j + 1]}.png'>
-            <button onclick="openCard(${[j + 1]})">CLick me</button>
-          </div>`;*/
       }
-
     }
+    for (let k = 0; k < searchPokemonArray.length; k++) {
+      const element = searchPokemonArray[k];
+      searchPokemonArrayResult.push(await fetchPokemon(element));
+      console.log(element);
+      results += `
+        <div id="card" class="card">
+          <h1>${searchPokemonArrayResult[k]['name']}</h1>
+          <img src='${searchPokemonArrayResult[k]['sprites']['front_default']}'>
+          <button onclick="openCardSearch(${[k]})">CLick me</button>
+        </div>`
+      
+      
+    }
+
+
     if (results === '') {
       results = '<li>Kein passendes Pokémon gefunden.</li>';
     }
@@ -67,10 +100,9 @@ function generateCards() {
   for (let i = 0; i < allPokemons.length; i++) {
     let element = allPokemons[i];
     pokemonName.innerHTML += `
-    <div id="card${[i + 1]}" class="card">
+    <div id="card${[i + 1]}" class="card ${element['types'][0]['type']['name']}" onclick="openCard(${[i]})">
       <h1>${element['name']}</h1>
       <img src='${element['sprites']['front_default']}'>
-      <button onclick="openCard(${[i]})">CLick me</button>
     </div>`;
   }
 }
@@ -95,7 +127,7 @@ function openCard(i) {
 function openCardSearch(j) {
   let pokemonBig = document.getElementById("openPokemonBox");
   document.getElementById("openPokemonBox").classList.remove("d-none");
-  let pokemon = searchPokemonArray[j];
+  let pokemon = searchPokemonArrayResult[j];
   pokemonBig.innerHTML = `
   <div class="pokemonBox" onclick="doNotClose(event)">
   <div class="pokemonBoxHeadline">
@@ -110,6 +142,9 @@ function openCardSearch(j) {
 }
 
 
+function setTypeColor() {
+
+}
 
 
 
