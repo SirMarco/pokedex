@@ -20,26 +20,19 @@
 
 </head>
 
-<body onload="init()">
-  <header>
-    <h1>Pokemon</h1>
-    <div>
-      <input id="inputValue" type="text" placeholder="Bitte Namen eingeben...">
-      <button onclick="searchPokemon()">Search</button>
+<body>
+  <div id="openPokemon" class="pokemonBox">
+    <div class="pokemonBoxHeadline">
+      <div>back</div>
+      <div>name</div>
+      <div>picture</div>
     </div>
-  </header>
-
-  <main>
-    <div id="cards" class="cards">
-      aa
+    <div class="pokemonBoxContent">
+      <div>Headline</div>
+      <div>Content</div>
     </div>
+  </div>
 
-    <div id="openPokemonBox" class="popup d-none" onclick="closeDialog()"></div>
-
-    <div class="loadMore">
-      <button onclick="loadMore()">Load more</button>
-    </div>
-  </main>
 </body>
 
 </html>
