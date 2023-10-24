@@ -100,7 +100,7 @@ function generateCards() {
   for (let i = 0; i < allPokemons.length; i++) {
     let element = allPokemons[i];
     pokemonName.innerHTML += `
-    <div id="card${[i + 1]}" class="card" onclick="openCard(${[i]})">
+    <div id="card${[i + 1]}" class="card ${element['types'][0]['type']['name']}" onclick="openCard(${[i]})">
       <h1>${element['name']}</h1>
       <img src='${element['sprites']['front_default']}'>
     </div>`;
