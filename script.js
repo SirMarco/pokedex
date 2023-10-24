@@ -72,7 +72,7 @@ async function searchPokemon() {
       searchPokemonArrayResult.push(await fetchPokemon(element));
       console.log(element);
       results += `
-        <div id="card" class="card">
+        <div id="card" class="pokemonCard">
           <h1>${searchPokemonArrayResult[k]['name']}</h1>
           <img src='${searchPokemonArrayResult[k]['sprites']['front_default']}'>
           <button onclick="openCardSearch(${[k]})">CLick me</button>
@@ -100,9 +100,12 @@ function generateCards() {
   for (let i = 0; i < allPokemons.length; i++) {
     let element = allPokemons[i];
     pokemonName.innerHTML += `
-    <div id="card${[i + 1]}" class="card ${element['types'][0]['type']['name']}" onclick="openCard(${[i]})">
+    <div id="card${[i + 1]}" class="pokemonCard ${element['types'][0]['type']['name']}" onclick="openCard(${[i]})">
       <h1>${element['name']}</h1>
       <img src='${element['sprites']['front_default']}'>
+      <div class="pokemonCardType ">
+        <div>${element['types'][0]['type']['name']}</div>
+      </div>
     </div>`;
   }
 }

@@ -27,6 +27,15 @@ header {
   margin: 0 16px 0 16px;
 }
 
+.pokemonCards {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-top: 10px;
+}
+
 .loadMore {
   display: flex;
   justify-content: center;
@@ -34,31 +43,30 @@ header {
   margin-top: 16px;
 }
 
-.card {
+.pokemonCard {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   flex-direction: column;
   width: 200px;
-  height: 150px;
+  height: 250px;
   border: 2px solid red;
   border-radius: 8px;
   cursor: pointer;
 }
 
-.card:hover {
-  transform: scale(1.45);
-  z-index: 2;
+.pokemonCard img {
+  flex: 1;
 }
 
-
-.cards {
+.pokemonCardType {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 10px;
-  padding-top: 10px;
+  justify-content: space-evenly;
+}
+
+.pokemonCard:hover {
+  transform: scale(1.45);
+  z-index: 2;
 }
 
 .popup {
