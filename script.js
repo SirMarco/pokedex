@@ -2,7 +2,7 @@ let allPokemons = [];
 let searchPokemonArray = [];
 let searchPokemonArrayResult = [];
 let start = 1;
-let end = 5;
+let end = 25;
 
 const TYPECOLORS = {
   normal: '#C6C6A7',
@@ -59,7 +59,7 @@ async function searchPokemon() {
     cards.innerHTML = '';
     searchPokemonArray = [];
     searchPokemonArrayResult = [];
-    
+
 
     for (let j = 0; j < data.results.length; j++) {
       let pokemon = data.results[j];
@@ -71,14 +71,21 @@ async function searchPokemon() {
       const element = searchPokemonArray[k];
       searchPokemonArrayResult.push(await fetchPokemon(element));
       console.log(element);
-      results += `
+      results += HTML`
         <div id="card" class="pokemonCard">
-          <h1>${searchPokemonArrayResult[k]['name']}</h1>
-          <img src='${searchPokemonArrayResult[k]['sprites']['front_default']}'>
-          <button onclick="openCardSearch(${[k]})">CLick me</button>
-        </div>`
-      
-      
+        <div class="pokemonCardHeadline">
+          <h1 class="mt-2">${searchPokemonArrayResult[k]['name']}</h1>
+          <div class="mt-2">${searchPokemonArrayResult[k]['height']}</div>
+        </div>
+        <div class="pokemonCardContent">
+          <div class="pokemonCardContentType">
+            <div class="pokemonCardContentTypeType">type</div>
+          </div>
+          <img src='${searchPokemonArrayResult[k]['sprites']['front_default']}'></img>
+        </div>
+      </div>`;
+
+
     }
 
 
@@ -101,12 +108,17 @@ function generateCards() {
     let element = allPokemons[i];
     pokemonName.innerHTML += `
     <div id="card${[i + 1]}" class="pokemonCard ${element['types'][0]['type']['name']}" onclick="openCard(${[i]})">
-      <h1>${element['name']}</h1>
-      <img src='${element['sprites']['front_default']}'>
-      <div class="pokemonCardType ">
-        <div>${element['types'][0]['type']['name']}</div>
-      </div>
-    </div>`;
+        <div class="pokemonCardHeadline">
+          <h1 class="mt-2">${element['name']}</h1>
+          <div class="mt-2">${element['id']}</div>
+        </div>
+        <div class="pokemonCardContent">
+          <div class="pokemonCardContentType">
+            <div class="pokemonCardContentTypeType">${element['types']['0']['type']['name']}</div>
+          </div>
+          <img src='${element['sprites']['other']['dream_world']['front_default']}'></img>
+        </div>
+     </div>`;
   }
 }
 
