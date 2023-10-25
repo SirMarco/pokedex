@@ -69,8 +69,8 @@ header {
   display: flex;
   justify-content: space-between;
   height: 50%;
-  width: 50%;
-  padding-right: 10px;
+  /* width: 50%; */
+  /* padding-right: 10px; */
   position: relative;
 }
 
@@ -79,6 +79,7 @@ header {
   flex-direction: column;
   justify-content: flex-start;
   width: 45%;
+  flex-grow: 3;
 }
 
 
@@ -92,7 +93,7 @@ header {
 
 
 .popup {
-  background-color: bisque;
+  backdrop-filter: blur(130px);
   z-index: 999;
   position: fixed;
   top: 0;
@@ -110,14 +111,25 @@ header {
   width: 500px;
 }
 
-.pokemonBoxHeadline {
-  position: relative;
-  background-color: red;
+.pokemonBoxHeadlineText {
   display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+  justify-content: space-around;
   align-items: center;
-  height: 20vh;
+  color: white;
+}
+
+.cardLikeIconHeart {
+  content: url('https://api.iconify.design/mdi/heart-outline.svg');
+  height: 24px;
+}
+
+
+.pokemonBoxHeadline {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  background-color: red;
+  /* height: 400px; */
   border-top-left-radius: 24px;
   border-top-right-radius: 24px;
 
@@ -129,22 +141,31 @@ header {
   top: 10px;
 }
 
-.pokemonBoxHeadline img {
-  height: 200px;
+.pokemonBoxHeadlineImg {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-bottom: 28px;
+}
 
+.pokemonBoxHeadline img {
+  width: 300px;
+  text-decoration: center;
 }
 
 .pokemonBoxHeadline img:hover {
-  transform: scale(1.80);
+  transform: scale(1.);
 
 }
+
+
 
 .pokemonBoxContent {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  height: 50vh;
+  height: 480px;
   background-color: aqua;
   border-radius: 20px;
   margin-top: -30px;

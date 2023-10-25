@@ -4,31 +4,6 @@ let searchPokemonArrayResult = [];
 let start = 1;
 let end = 25;
 
-const TYPECOLORS = {
-  normal: '#C6C6A7',
-  fire: '#F5AC78',
-  water: '#9DB7F5',
-  electric: '#FAE078',
-  grass: '#A7DB8D',
-  ice: '#BCE6E6',
-  fighting: '#D67873',
-  poison: '#C183C1',
-  ground: '#EBD69D',
-  flying: '#A890F0',
-  psychic: '#FA92B2',
-  bug: '#C6D16E',
-  rock: '#D1C17D',
-  ghost: '#A292BC',
-  dragon: '#A27DFA',
-  dark: '#A29288',
-  steel: '#D1D1E0',
-  fairy: '#F4BDC9',
-};
-
-
-
-
-
 async function init() {
   for (let i = start; i <= end; i++) {
     try {
@@ -59,8 +34,6 @@ async function searchPokemon() {
     cards.innerHTML = '';
     searchPokemonArray = [];
     searchPokemonArrayResult = [];
-
-
     for (let j = 0; j < data.results.length; j++) {
       let pokemon = data.results[j];
       if (pokemon.name.includes(search)) {
@@ -84,8 +57,6 @@ async function searchPokemon() {
           <img src='${searchPokemonArrayResult[k]['sprites']['front_default']}'></img>
         </div>
       </div>`;
-
-
     }
 
 
@@ -116,7 +87,7 @@ function generateCards() {
           <div class="pokemonCardContentType">
             <div class="pokemonCardContentTypeType">${element['types']['0']['type']['name']}</div>
           </div>
-          <img src='${element['sprites']['other']['dream_world']['front_default']}'></img>
+          <img src='${element['sprites']['other']['home']['front_default']}'></img>
         </div>
      </div>`;
   }
@@ -128,9 +99,17 @@ function openCard(i) {
   let pokemon = allPokemons[i];
   pokemonBig.innerHTML = `
   <div class="pokemonBox" onclick="doNotClose(event)">
-  <div class="pokemonBoxHeadline">
-    <div>${pokemon['name']}</div>
-    <div><img src='${pokemon['sprites']['back_default']}'></div>
+  <div class="pokemonBoxHeadline ${pokemon['types'][0]['type']['name']}">
+    <div class="pokemonBoxHeadlineText">
+      <div onclick="closeDialog()">Close</div>
+      <div>
+        <h1 class="pokemonBoxHeadlineText">${pokemon.name}</h1>
+      </div>
+      <div class="cardLikeIconHeart"></div>
+    </div>
+    <div class="pokemonBoxHeadlineImg">
+    <img src='${pokemon['sprites']['other']['home']['front_default']}'>
+    </div>
   </div>
   <div class="pokemonBoxContent">
     <div>Headline</div>
