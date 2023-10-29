@@ -11,14 +11,10 @@ h1 {
   display: none;
 }
 
-.grass {
-  background-color: green !important;
+main {
+  max-width: 1400px;
+  margin: 0 auto;
 }
-
-.fire {
-  background-color: orange !important;
-}
-
 
 header {
   display: flex;
@@ -52,6 +48,8 @@ header {
   cursor: pointer;
   background-color: rgb(202, 202, 21);
   color: white;
+  display: flex;
+  flex-direction: column;
 }
 
 .pokemonCard:hover {
@@ -59,29 +57,44 @@ header {
 }
 
 
-.pokemonCardHeadline {
-  display: flex;
-  justify-content: space-around;
-  height: 50%;
+.pokemonCardTop {
+  height: 125px;
 }
 
-.pokemonCardContent {
+.pokemonCardBottom {
   display: flex;
-  justify-content: space-between;
-  height: 50%;
-  /* width: 50%; */
-  /* padding-right: 10px; */
-  position: relative;
+  flex-grow: 1;
+  height: 100px;
 }
 
-.pokemonCardContentType {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  width: 45%;
-  flex-grow: 3;
+.pokemonCardBottom-1 {
+  flex: 1;
 }
 
+.pokemonCardBottom-1 p {
+  background-color: white;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  color: black;
+  padding-left: 8px;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.pokemonCardBottom-2 {
+  flex: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pokemonCardBottom-2 img {
+  /* object-fit: cover; */
+  width: 100%;
+  height: 100%;
+}
 
 .pokemonCardContentTypeType {
   background: white;
@@ -118,8 +131,13 @@ header {
   color: white;
 }
 
+.cardClose {
+  content: url('https://api.iconify.design/material-symbols/close.svg?color=white');
+  height: 24px;
+}
+
 .cardLikeIconHeart {
-  content: url('https://api.iconify.design/mdi/heart-outline.svg');
+  content: url('https://api.iconify.design/mdi/heart-outline.svg?color=white');
   height: 24px;
 }
 
@@ -128,7 +146,7 @@ header {
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
-  background-color: red;
+  /* background-color: red; */
   /* height: 400px; */
   border-top-left-radius: 24px;
   border-top-right-radius: 24px;
@@ -166,7 +184,7 @@ header {
   justify-content: flex-start;
   align-items: center;
   height: 480px;
-  background-color: aqua;
+  background-color: white;
   border-radius: 20px;
   margin-top: -30px;
   z-index: 2;

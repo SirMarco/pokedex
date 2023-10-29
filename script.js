@@ -2,7 +2,7 @@ let allPokemons = [];
 let searchPokemonArray = [];
 let searchPokemonArrayResult = [];
 let start = 1;
-let end = 25;
+let end = 30;
 
 async function init() {
   for (let i = start; i <= end; i++) {
@@ -24,6 +24,7 @@ async function fetchPokemon(i) {
   return responseAsJson;
 }
 
+
 async function searchPokemon() {
   let search = document.getElementById('inputValue').value.toLowerCase();
   let cards = document.getElementById('cards');
@@ -34,6 +35,7 @@ async function searchPokemon() {
     cards.innerHTML = '';
     searchPokemonArray = [];
     searchPokemonArrayResult = [];
+
     for (let j = 0; j < data.results.length; j++) {
       let pokemon = data.results[j];
       if (pokemon.name.includes(search)) {
@@ -42,21 +44,23 @@ async function searchPokemon() {
     }
     for (let k = 0; k < searchPokemonArray.length; k++) {
       const element = searchPokemonArray[k];
+      // console.log(element);
       searchPokemonArrayResult.push(await fetchPokemon(element));
-      console.log(element);
-      results += HTML`
-        <div id="card" class="pokemonCard">
-        <div class="pokemonCardHeadline">
-          <h1 class="mt-2">${searchPokemonArrayResult[k]['name']}</h1>
-          <div class="mt-2">${searchPokemonArrayResult[k]['height']}</div>
-        </div>
-        <div class="pokemonCardContent">
-          <div class="pokemonCardContentType">
-            <div class="pokemonCardContentTypeType">type</div>
-          </div>
-          <img src='${searchPokemonArrayResult[k]['sprites']['front_default']}'></img>
-        </div>
-      </div>`;
+      results +=  /*html*/ `
+       <div id="card${[k + 1]}" class="pokemonCard ${searchPokemonArrayResult[k]['types'][0]['type']['name']}" onclick="openCardSearch(${[k]})">
+       <div class="pokemonCardTop">
+        <h1 class="mt-2 text-white">${upperCase(searchPokemonArrayResult[k]['name'])}</h1>
+        <p class="mt-2 text-white">${modifyId((searchPokemonArrayResult[k]['id']))}</p>
+      </div>
+      <div class="pokemonCardBottom">
+      <div class="pokemonCardBottom-1">
+        <p class="${searchPokemonArrayResult[k]['types'][0]['type']['name']}-text">${upperCase(searchPokemonArrayResult[k]['types']['0']['type']['name'])}</p>
+      </div>
+      <div class="pokemonCardBottom-2">
+      <img src='${searchPokemonArrayResult[k]['sprites']['other']['home']['front_default']}'>
+      </div>
+    </div>
+    </div>`;
     }
 
 
@@ -65,9 +69,9 @@ async function searchPokemon() {
     }
     cards.innerHTML = results;
   }
-  catch {
+  catch (error) {
     cards.innerHTML = '<li>suche aktuell nicht möglich</li>';
-    console.log('fehler in der suche');
+    console.log('fehler in der suche' + error);
   }
 }
 
@@ -77,19 +81,21 @@ function generateCards() {
   pokemonName.innerHTML = ``;
   for (let i = 0; i < allPokemons.length; i++) {
     let element = allPokemons[i];
-    pokemonName.innerHTML += `
+    pokemonName.innerHTML += /*html*/`
     <div id="card${[i + 1]}" class="pokemonCard ${element['types'][0]['type']['name']}" onclick="openCard(${[i]})">
-        <div class="pokemonCardHeadline">
-          <h1 class="mt-2">${element['name']}</h1>
-          <div class="mt-2">${element['id']}</div>
-        </div>
-        <div class="pokemonCardContent">
-          <div class="pokemonCardContentType">
-            <div class="pokemonCardContentTypeType">${element['types']['0']['type']['name']}</div>
-          </div>
-          <img src='${element['sprites']['other']['home']['front_default']}'></img>
-        </div>
-     </div>`;
+      <div class="pokemonCardTop">
+        <h1 class="mt-2 text-white">${upperCase(element['name'])}</h1>
+        <p class="mt-2 text-white">${modifyId((element['id']))}</p>
+      </div>
+    <div class="pokemonCardBottom">
+      <div class="pokemonCardBottom-1">
+        <p class="${element['types'][0]['type']['name']}-text">${upperCase(element['types']['0']['type']['name'])}</p>
+      </div>
+      <div class="pokemonCardBottom-2">
+        <img src='${element['sprites']['other']['dream_world']['front_default']}'>
+      </div>
+    </div>
+    </div>`;
   }
 }
 
@@ -97,13 +103,13 @@ function openCard(i) {
   let pokemonBig = document.getElementById("openPokemonBox");
   document.getElementById("openPokemonBox").classList.remove("d-none");
   let pokemon = allPokemons[i];
-  pokemonBig.innerHTML = `
+  pokemonBig.innerHTML =/*html*/ `
   <div class="pokemonBox" onclick="doNotClose(event)">
   <div class="pokemonBoxHeadline ${pokemon['types'][0]['type']['name']}">
     <div class="pokemonBoxHeadlineText">
-      <div onclick="closeDialog()">Close</div>
+      <div onclick="closeDialog()" class="cardClose"></div>
       <div>
-        <h1 class="pokemonBoxHeadlineText">${pokemon.name}</h1>
+        <h1 class="pokemonBoxHeadlineText">${upperCase(pokemon.name)}</h1>
       </div>
       <div class="cardLikeIconHeart"></div>
     </div>
@@ -122,11 +128,19 @@ function openCardSearch(j) {
   let pokemonBig = document.getElementById("openPokemonBox");
   document.getElementById("openPokemonBox").classList.remove("d-none");
   let pokemon = searchPokemonArrayResult[j];
-  pokemonBig.innerHTML = `
+  pokemonBig.innerHTML =/*html*/`
   <div class="pokemonBox" onclick="doNotClose(event)">
-  <div class="pokemonBoxHeadline">
-    <div>${pokemon['name']}</div>
-    <div><img src='${pokemon['sprites']['back_default']}'></div>
+  <div class="pokemonBoxHeadline ${pokemon['types'][0]['type']['name']}">
+    <div class="pokemonBoxHeadlineText">
+      <div onclick="closeDialog()" class="cardClose">Close</div>
+      <div>
+        <h1 class="pokemonBoxHeadlineText">${upperCase(pokemon.name)}</h1>
+      </div>
+      <div class="cardLikeIconHeart"></div>
+    </div>
+    <div class="pokemonBoxHeadlineImg">
+    <img src='${pokemon['sprites']['other']['home']['front_default']}'>
+    </div>
   </div>
   <div class="pokemonBoxContent">
     <div>Headline</div>
@@ -152,6 +166,16 @@ function doNotClose(event) {
 
 function errorFunction() {
   console.warn('fehler error function');
+}
+
+function upperCase(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+function modifyId(number) {
+  let numToString = number.toString();
+  // console.log(numToString);
+  return `#` + numToString.padStart(4, '0');
 }
 
 function loadMore() {

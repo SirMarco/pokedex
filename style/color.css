@@ -1,0 +1,158 @@
+.red {
+  border: 1px solid red;
+}
+
+.grass {
+  background-color: #78C850 !important;
+}
+
+.fire {
+  background-color: #F08030 !important;
+}
+
+.water {
+  background-color: #6890F0 !important;
+}
+
+.plant {
+  background-color: #78C850 !important;
+}
+
+.electric {
+  background-color: #F8D030 !important;
+}
+
+.ground {
+  background-color: #E0C068 !important;
+}
+
+.rock {
+  background-color: #B8A038 !important;
+}
+
+.flying {
+  background-color: #A890F0 !important;
+}
+
+.fighting {
+  background-color: #C03028 !important;
+}
+
+.psychic {
+  background-color: #F85888 !important;
+}
+
+.bug {
+  background-color: #A8B820 !important;
+}
+
+.poison {
+  background-color: #A040A0 !important;
+}
+
+.steel {
+  background-color: #B8B8D0 !important;
+}
+
+.ice {
+  background-color: #98D8D8 !important;
+}
+
+.dragon {
+  background-color: #7038F8 !important;
+}
+
+.dark {
+  background-color: #705848 !important;
+}
+
+.fairy {
+  background-color: #EE99AC !important;
+}
+
+.ghost {
+  background-color: #705898 !important;
+}
+
+.normal {
+  background-color: rgb(146, 114, 178) !important;
+}
+
+
+/* Text Color Types */
+
+.grass-text {
+  color: #78C850 !important;
+}
+
+.fire-text {
+  color: #F08030 !important;
+}
+
+.water-text {
+  color: #6890F0 !important;
+}
+
+.plant-text {
+  color: #78C850 !important;
+}
+
+.electric-text {
+  color: #F8D030 !important;
+}
+
+.ground-text {
+  color: #E0C068 !important;
+}
+
+.rock-text {
+  color: #B8A038 !important;
+}
+
+.flying-text {
+  color: #A890F0 !important;
+}
+
+.fighting-text {
+  color: #C03028 !important;
+}
+
+.psychic-text {
+  color: #F85888 !important;
+}
+
+.bug-text {
+  color: #A8B820 !important;
+}
+
+.poison-text {
+  color: #A040A0 !important;
+}
+
+.steel-text {
+  color: #B8B8D0 !important;
+}
+
+.ice-text {
+  color: #98D8D8 !important;
+}
+
+.dragon-text {
+  color: #7038F8 !important;
+}
+
+.dark-text {
+  color: #705848 !important;
+}
+
+.fairy-text {
+  color: #EE99AC !important;
+}
+
+.ghost-text {
+  color: #705898 !important;
+}
+
+.normal {
+  color: rgb(146, 114, 178) !important;
+}
