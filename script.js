@@ -2,7 +2,7 @@ let allPokemons = [];
 let searchPokemonArray = [];
 let searchPokemonArrayResult = [];
 let start = 1;
-let end = 30;
+let end = 10;
 
 async function init() {
   for (let i = start; i <= end; i++) {
@@ -118,9 +118,22 @@ function openCard(i) {
     </div>
   </div>
   <div class="pokemonBoxContent">
-    <div>Headline</div>
-    <div>Content</div>
-  </div>
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item" role="presentation">
+    <button class="nav-link active" id="about-tab" data-bs-toggle="tab" data-bs-target="#about" type="button" role="tab" aria-controls="about" aria-selected="true">About</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="stats-tab" data-bs-toggle="tab" data-bs-target="#stats" type="button" role="tab" aria-controls="stats" aria-selected="false">Stats</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="moves-tab" data-bs-toggle="tab" data-bs-target="#moves" type="button" role="tab" aria-controls="moves" aria-selected="false">Moves</button>
+  </li>
+</ul>
+    <div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="about" role="tabpanel" aria-labelledby="about-tab">about</div>
+    <div class="tab-pane fade" id="stats" role="tabpanel" aria-labelledby="stats-tab">stats</div>
+    <div class="tab-pane fade" id="moves" role="tabpanel" aria-labelledby="moves-tab">moves</div>
+  </div>  </div>
 </div>`;
 }
 

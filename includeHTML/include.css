@@ -1,0 +1,57 @@
+h1,
+p {
+  margin: 0;
+}
+
+.d-none {
+  display: none;
+}
+
+.red {
+  border: 1px solid red;
+}
+
+.bg-green {
+  background-color: rgb(100, 162, 100);
+}
+
+.cards {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+.card {
+  width: 400px;
+  height: 400px;
+}
+
+.card-top {
+  height: 100px;
+}
+
+.card-bottom {
+  height: 20px;
+  display: flex;
+  justify-content: space-around;
+  flex-grow: 1;
+}
+
+.card-bottom-item-1 {
+  flex: 1;
+}
+
+.card-bottom-item-2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
+
+.card-bottom-content {
+  /* display: flex; */
+}
+
+.active {
+  color: red;
+}
