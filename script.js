@@ -118,6 +118,29 @@ function openCard(i) {
     </div>
   </div>
   <div class="pokemonBoxContent">
+      <!-- TABS POPUP HEADER -->
+  <ul class="nav justify-content-evenly" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="pokemonBoxTab active" id="base-tab" data-bs-toggle="tab" data-bs-target="#base" type="button"
+        role="tab" aria-controls="base" aria-selected="false">Base Stats</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="pokemonBoxTab" id="evolution-tab" data-bs-toggle="tab" data-bs-target="#evolution" type="button"
+        role="tab" aria-controls="evolution" aria-selected="false">Evolution</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="pokemonBoxTab" id="moves-tab" data-bs-toggle="tab" data-bs-target="#moves" type="button" role="tab"
+        aria-controls="moves" aria-selected="false">Moves</button>
+    </li>
+  </ul>
+  <!-- TABS POPUP HEADER -->
+  <div class="tab-content mt-1 " id="myTabContent">
+    <div class="tab-pane fade show active red" id="base" role="tabpanel" aria-labelledby="base">
+    ${pokemon['stats'][0]['base_stat']}
+    </div>
+    <div class="tab-pane fade red" id="evolution" role="tabpanel" aria-labelledby="evolution">TAB 12...</div>
+    <div class="tab-pane fade red" id="moves" role="tabpanel" aria-labelledby="moves">TAB 13...</div>
+  </div>
   </div>
 </div>`;
 }
