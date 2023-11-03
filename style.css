@@ -203,3 +203,43 @@ header {
 .pokemonBoxTab:hover {
   border-bottom: 2px solid rebeccapurple;
 }
+
+/* Table PopUp*/
+div.unstyledTable {
+  text-align: left;
+  width: 100%;
+}
+
+.divTable.unstyledTable .divTableCell,
+.divTable.unstyledTable .divTableHead {
+  padding: 8px 2px;
+}
+
+.divTable {
+  display: table;
+}
+
+.divTableRow {
+  display: table-row;
+}
+
+.divTableHeading {
+  display: table-header-group;
+}
+
+.divTableCell,
+.divTableHead {
+  display: table-cell;
+}
+
+.divTableHeading {
+  display: table-header-group;
+}
+
+.divTableFoot {
+  display: table-footer-group;
+}
+
+.divTableBody {
+  display: table-row-group;
+}
