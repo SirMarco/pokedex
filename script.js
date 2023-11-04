@@ -2,7 +2,7 @@ let allPokemons = [];
 let searchPokemonArray = [];
 let searchPokemonArrayResult = [];
 let start = 1;
-let end = 3;
+let end = 30;
 
 async function init() {
   for (let i = start; i <= end; i++) {
@@ -126,7 +126,7 @@ function openCard(i) {
     </li>
     <li class="nav-item" role="presentation">
       <button class="pokemonBoxTab" id="evolution-tab" data-bs-toggle="tab" data-bs-target="#evolution" type="button"
-        role="tab" aria-controls="evolution" aria-selected="false">Evolution</button>
+        role="tab" aria-controls="evolution" aria-selected="false">Base Stats</button>
     </li>
     <li class="nav-item" role="presentation">
       <button class="pokemonBoxTab" id="moves-tab" data-bs-toggle="tab" data-bs-target="#moves" type="button" role="tab"
@@ -136,30 +136,35 @@ function openCard(i) {
   <!-- TABS POPUP HEADER -->
   <div class="tab-content mt-1 " id="myTabContent">
     <div class="tab-pane fade show active red" id="base" role="tabpanel" aria-labelledby="base">
-      
-<div class="divTable unstyledTable">
-<div class="divTableBody">
-<div class="divTableRow">
-<div class="divTableCell">Grösse</div><div class="divTableCell">${pokemon['height']} cm</div></div>
-<div class="divTableRow">
-<div class="divTableCell">Gewicht</div><div class="divTableCell">${pokemon['weight'] / 100} kg</div></div>
-<div class="divTableRow">
-<div class="divTableCell">cell1_3</div><div class="divTableCell">cell2_3</div></div>
-<div class="divTableRow">
-<div class="divTableCell">cell1_4</div><div class="divTableCell">cell2_4</div></div>
-<div class="divTableRow">
-<div class="divTableCell">cell1_5</div><div class="divTableCell">cell2_5</div></div>
-</div>
+    <div class="divTable unstyledTable">
+  <div class="divTableBody">
+  <div class="divTableRow">
+  <div class="divTableCell">Grösse</div><div class="divTableCell">${pokemon['height']} cm</div></div>
+  <div class="divTableRow">
+  <div class="divTableCell">Gewicht</div><div class="divTableCell">${pokemon['weight'] / 100} kg</div></div>
+  <div class="divTableRow">
+  <div class="divTableCell">cell1_3</div><div class="divTableCell">cell2_3</div></div>
+  <div class="divTableRow">
+  <div class="divTableCell">cell1_4</div><div class="divTableCell">cell2_4</div></div>
+  <div class="divTableRow">
+  <div class="divTableCell">cell1_5</div><div class="divTableCell">cell2_5</div></div>
+  </div>
+  </div>
+
 
     
     </div>
     <div class="tab-pane fade red" id="evolution" role="tabpanel" aria-labelledby="evolution">
-      evolution
+    <div style="width: 99%;">
+    <canvas id="barChart"></canvas>
+  </div>
+
     </div>
     <div class="tab-pane fade red" id="moves" role="tabpanel" aria-labelledby="moves">TAB 13...</div>
   </div>
   </div>
 </div>`;
+  chart(i, allPokemons);
 }
 
 function openCardSearch(j) {
