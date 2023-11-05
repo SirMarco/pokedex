@@ -2,6 +2,10 @@
   border: 1px solid red;
 }
 
+.blue {
+  border: 1px solid blue;
+}
+
 .grass {
   background-color: #78C850 !important;
 }

@@ -13,8 +13,7 @@ function chart(i, allPokemons) {
       pokemon['stats'][3]['base_stat'],
       pokemon['stats'][4]['base_stat'],
       pokemon['stats'][5]['base_stat']],
-      backgroundColor: 'lightgrey',
-      borderColor: 'rgba(75, 192, 192, 1)',
+      backgroundColor: ["#78C850", "#F08030", "#6890F0", "#F8D030", "#F85888", "#7038F8"],
       borderWidth: 1
     }]
 
@@ -23,6 +22,7 @@ function chart(i, allPokemons) {
   var ctx = document.getElementById("barChart").getContext('2d');
   console.log(ctx);
   var myChart = new Chart(ctx, {
+    plugins: [ChartDataLabels],
     type: 'bar',
     data: data,
     options: {
@@ -36,7 +36,7 @@ function chart(i, allPokemons) {
       },
       plugins: {
         tooltip: {
-          enabled: false
+          enabled: true
         },
         legend: {
           display: false
@@ -49,6 +49,16 @@ function chart(i, allPokemons) {
               yMax: 2.4,
               borderColor: 'rgb(255, 99, 132)',
               borderWidth: 2,
+            }
+          }
+        },
+        datalabels: {
+          color: '#fff',
+          labels: {
+            title: {
+              font: {
+                weight: 'light'
+              },
             }
           }
         }

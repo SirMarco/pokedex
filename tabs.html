@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style/color.css">
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="pokemonBox" onclick="doNotClose(event)">
+    <div class="pokemonBoxHeadline ${pokemon['types'][0]['type']['name']}">
+      <div class="pokemonBoxHeadlineText">
+        <div onclick="closeDialog()" class="cardClose"></div>
+        <div>
+          <h1 class="pokemonBoxHeadlineText">${upperCase(pokemon.name)}</h1>
+        </div>
+        <div class="cardLikeIconHeart"></div>
+      </div>
+      <div class="pokemonBoxHeadlineImg">
+        <img src='${pokemon[' sprites']['other']['home']['front_default']}'>
+      </div>
+    </div>
+    <div class="pokemonBoxContent">
+      <div class="pokemonBoxContentHeader">
+        <div onclick="tabs('flex', 'none', 'none')">About</div>
+        <div onclick="tabs('none', 'flex', 'none')">Base Stats</div>
+        <div onclick="tabs('none', 'none', 'flex')">Moves</div>
+      </div>
+      <div id="about" style="display: flex;">
+        <div class="moves">
+          <div class="blue">Mega-punch</div>
+          <div class="blue">Fire-punch</div>
+          <div class="blue">Thunder-punch</div>
+          <div class="blue">Scratch</div>
+          <div class="blue">Swords-dance</div>
+          <div class="blue">Cut</div>
+          <div class="blue">Wing-attack</div>
+          <div class="blue">Mega-kick</div>
+          <div class="blue">Headbutt</div>
+          <div class="blue">Body-slam</div>
+          <div class="blue">Take-down</div>
+          <div class="blue">Double-edge</div>
+          <div class="blue">Leer</div>
+          <div class="blue">Mega-punch</div>
+          <div class="blue">Fire-punch</div>
+          <div class="blue">Thunder-punch</div>
+          <div class="blue">Scratch</div>
+          <div class="blue">Swords-dance</div>
+          <div class="blue">Cut</div>
+          <div class="blue">Wing-attack</div>
+          <div class="blue">Mega-kick</div>
+          <div class="blue">Headbutt</div>
+          <div class="blue">Body-slam</div>
+          <div class="blue">Take-down</div>
+          <div class="blue">Double-edge</div>
+          <div class="blue">Leer</div>
+          <div class="blue">Mega-punch</div>
+          <div class="blue">Fire-punch</div>
+          <div class="blue">Thunder-punch</div>
+          <div class="blue">Scratch</div>
+          <div class="blue">Swords-dance</div>
+          <div class="blue">Cut</div>
+          <div class="blue">Wing-attack</div>
+          <div class="blue">Mega-kick</div>
+          <div class="blue">Headbutt</div>
+          <div class="blue">Body-slam</div>
+          <div class="blue">Take-down</div>
+          <div class="blue">Double-edge</div>
+          <div class="blue">Leer</div>
+          <div class="blue">Mega-punch</div>
+          <div class="blue">Fire-punch</div>
+          <div class="blue">Thunder-punch</div>
+          <div class="blue">Scratch</div>
+          <div class="blue">Swords-dance</div>
+          <div class="blue">Cut</div>
+          <div class="blue">Wing-attack</div>
+          <div class="blue">Mega-kick</div>
+          <div class="blue">Headbutt</div>
+          <div class="blue">Body-slam</div>
+          <div class="blue">Take-down</div>
+          <div class="blue">Double-edge</div>
+          <div class="blue">Leer</div>
+          <div class="blue">Mega-punch</div>
+          <div class="blue">Fire-punch</div>
+          <div class="blue">Thunder-punch</div>
+          <div class="blue">Scratch</div>
+          <div class="blue">Swords-dance</div>
+          <div class="blue">Cut</div>
+          <div class="blue">Wing-attack</div>
+          <div class="blue">Mega-kick</div>
+          <div class="blue">Headbutt</div>
+          <div class="blue">Body-slam</div>
+          <div class="blue">Take-down</div>
+          <div class="blue">Double-edge</div>
+          <div class="blue">Leer</div>
+          <div class="blue">Mega-punch</div>
+          <div class="blue">Fire-punch</div>
+          <div class="blue">Thunder-punch</div>
+          <div class="blue">Scratch</div>
+          <div class="blue">Swords-dance</div>
+          <div class="blue">Cut</div>
+          <div class="blue">Wing-attack</div>
+          <div class="blue">Mega-kick</div>
+          <div class="blue">Headbutt</div>
+          <div class="blue">Body-slam</div>
+          <div class="blue">Take-down</div>
+          <div class="blue">Double-edge</div>
+          <div class="blue">Leer</div>
+        </div>
+      </div>
+      <div id="stats" style="display: none;">
+        <div style="width: 99%; height:400px">
+          <canvas id="barChart"></canvas>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+</body>
+
+</html>
