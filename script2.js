@@ -3,7 +3,7 @@ let allPokemonsDetail = [];
 let searchPokemonArray = [];
 let searchPokemonArrayResult = [];
 let start = 1;
-let end = 3;
+let end = 10;
 
 async function init() {
   for (let i = start; i <= end; i++) {
@@ -64,16 +64,80 @@ function openCard(i) {
   let pokemonDetail = allPokemonsDetail[i];
   pokemonBig.innerHTML =/*html*/ `
   <div class="pokemonBox" onclick="doNotClose(event)">
-
+  <div class="card-container" onclick="doNotClose(event)">
+            <div class="card-item-top ${pokemon['types'][0]['type']['name']}">
+            <!-- <div class=""> -->
+                <div class="card-item-header ">
+                    <div onclick="closeDialog()" class="cardClose">X</div>
+                    <h1 class="pokemonBoxHeadlineText">${upperCase(pokemon.name)}</h1>
+                    <div class="cardLikeIconHeart"></div>
+                </div>
+            <!-- </div> -->
+            <div class="card-item">
+                <img class="card-item-image" src='${pokemon['sprites']['other']['home']['front_default']}' alt="">
+            </div>
+            </div>
+            <div class="card-item">
+                <div class="card-item-tab-header">
+                    <p class="card-item-tab" onclick="cardTab('flex','none','none')">ABOUT</p>
+                    <p class="card-item-tab" onclick="cardTab('none','flex','none')">BASE STATS</p>
+                    <p class="card-item-tab" onclick="cardTab('none','none','flex')">MOVES</p>
+                </div>
+            </div>
+            <div class="card-item" >
+                <div  id="tab1" class="card-item-tab-content" style="display: flex;">
+                    <div class="card-table" role="region" tabindex="0">
+                        <table>
+                            <tbody>
+                            <tr>
+                                <td>Height</td>
+                                <td>${pokemon['height'] / 10} m</td>
+                            </tr>
+                            <tr>
+                                <td>Weight</td>
+                                <td>${pokemon['weight'] / 10} kg</td>
+                            </tr>
+                            <tr>
+                                <td>Egg Group</td>
+                                <td>${upperCase(pokemonDetail['egg_groups'][0]['name'])}</td>
+                            </tr>
+                            <tr>
+                                <td>Color</td>
+                                <td>${upperCase(pokemonDetail['color']['name'])}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div  id="tab2" class="card-item-tab-content" style="display: none;">
+                    <canvas id="barChart"></canvas>
+                </div>
+                <div  id="tab3" class="card-item-tab-content card-item-tab-content-move" style="display: none;">
+                </div>
+            </div>
+        </div>
   </div>`;
-  // chart(i, allPokemons);
-  // pokemonMoves(i);
+  chart(i, allPokemons);
+  pokemonMoves(i);
+}
+
+function pokemonMoves(i) {
+  let move = document.getElementById('tab3');
+  let pokemon = allPokemons[i];
+  for (let m = 0; m < pokemon.moves.length; m++) {
+    const element = pokemon.moves[m]['move']['name'];
+    move.innerHTML += /*html*/`
+    <div class="card-item-move">${upperCase(element)} <img src="img/ball_tab.png" style="width:10px"> </div>
+    `;
+  }
 }
 
 
-
-
-
+function cardTab(tab1, tab2, tab3) {
+  document.getElementById('tab1').style.display = `${tab1}`;
+  document.getElementById('tab2').style.display = `${tab2}`;
+  document.getElementById('tab3').style.display = `${tab3}`;
+}
 
 
 
@@ -196,17 +260,6 @@ function openCardSearch(j) {
 </div>`;
 }
 
-
-function pokemonMoves(i) {
-  let move = document.getElementById('moves');
-  let pokemon = allPokemons[i];
-  for (let m = 0; m < pokemon.moves.length; m++) {
-    const element = pokemon.moves[m]['move']['name'];
-    move.innerHTML += /*html*/`
-    <div class="">${upperCase(element)}</div>
-    `;
-  }
-}
 
 function tabs(about, stats, moves) {
   document.getElementById('about').style.display = `${about}`;
