@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/card/style.css">
+    <title>Card</title>
+    <script>
+        function cardTab(tab1, tab2, tab3) {
+            document.getElementById('tab1').style.display = `${tab1}`;
+            document.getElementById('tab2').style.display = `${tab2}`;
+            document.getElementById('tab3').style.display = `${tab3}`;
+        }
+    </script>
+</head>
+<body>
+    <main>
+        <div class="card-container" onclick="doNotClose(event)">
+            <div class="card-item ${pokemon['types'][0]['type']['name']}">
+                <div class="card-item-header ">
+                    <div onclick="closeDialog()" class="cardClose"></div>
+                    <h1 class="pokemonBoxHeadlineText">${upperCase(pokemon.name)}</h1>
+                    <div class="cardLikeIconHeart"></div>
+                </div>
+            </div>
+            <div class="card-item">
+                <img class="card-item-image" src='${pokemon['sprites']['other']['home']['front_default']}' alt="">
+            </div>
+            <div class="card-item">
+                <div class="card-item-tab-header ">
+                    <p class="card-item-tab" onclick="cardTab('flex','none','none')">tab1</p>
+                    <p class="card-item-tab" onclick="cardTab('none','flex','none')">tab2</p>
+                    <p class="card-item-tab" onclick="cardTab('none','none','flex')">tab3</p>
+                </div>
+            </div>
+            <div class="card-item" >
+                <div  id="tab1" class="card-item-tab-content" style="display: flex;">
+                    <div class="card-table" role="region" tabindex="0">
+                        <table>
+                            <tbody>
+                            <tr>
+                                <td>Height</td>
+                                <td>${pokemon['height'] / 10} m</td>
+                            </tr>
+                            <tr>
+                                <td>Weight</td>
+                                <td>${pokemon['weight'] / 10} kg</td>
+                            </tr>
+                            <tr>
+                                <td>Egg Group</td>
+                                <td>${upperCase(pokemonDetail['egg_groups'][0]['name'])}</td>
+                            </tr>
+                            <tr>
+                                <td>Color</td>
+                                <td>${upperCase(pokemonDetail['color']['name'])}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div  id="tab2" class="card-item-tab-content" style="display: none;">
+                    <canvas id="barChart"></canvas>
+                </div>
+                <div  id="tab3" class="card-item-tab-content" style="display: none;">
+                    <div class="card-item-move">glessssssss</div>
+                    <div class="card-item-move">gle</div>
+                    <div class="card-item-move">glessssssss</div>
+                    <div class="card-item-move">gle</div>
+                    <div class="card-item-move">gle</div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

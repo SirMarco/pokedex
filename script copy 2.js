@@ -115,66 +115,58 @@ function openCard(i) {
   let pokemon = allPokemons[i];
   let pokemonDetail = allPokemonsDetail[i];
   pokemonBig.innerHTML =/*html*/ `
-  <div class="pokemonBox" onclick="doNotClose(event)">
-  <div class="pokemonBoxHeadline ${pokemon['types'][0]['type']['name']}">
-    <div class="pokemonBoxHeadlineText">
-      <div onclick="closeDialog()" class="cardClose"></div>
-      <div>
-        <h1 class="pokemonBoxHeadlineText">${upperCase(pokemon.name)}</h1>
+  <div class="card-container" onclick="doNotClose(event)">
+  <div class="card-item ${pokemon['types'][0]['type']['name']}">
+      <div class="card-item-header ">
+          <div onclick="closeDialog()" class="cardClose"></div>
+          <h1 class="pokemonBoxHeadlineText">${upperCase(pokemon.name)}</h1>
+          <div class="cardLikeIconHeart"></div>
       </div>
-      <div class="cardLikeIconHeart"></div>
-    </div>
-    <div class="pokemonBoxHeadlineImg">
-    <img src='${pokemon['sprites']['other']['home']['front_default']}'>
-    </div>
   </div>
-  <div class="pokemonBoxContent">
-      <!-- TABS POPUP HEADER -->
-  <ul class="nav justify-content-evenly" id="myTab" role="tablist">
-    <li class="nav-item" role="presentation">
-      <button class="pokemonBoxTab active" id="base-tab" data-bs-toggle="tab" data-bs-target="#base" type="button"
-        role="tab" aria-controls="base" aria-selected="false">About</button>
-    </li>
-    <li class="nav-item" role="presentation">
-      <button class="pokemonBoxTab" id="evolution-tab" data-bs-toggle="tab" data-bs-target="#evolution" type="button"
-        role="tab" aria-controls="evolution" aria-selected="false">Base Stats</button>
-    </li>
-    <li class="nav-item" role="presentation">
-      <button class="pokemonBoxTab" id="moves-tab" data-bs-toggle="tab" data-bs-target="#moves" type="button" role="tab"
-        aria-controls="moves" aria-selected="false">Moves</button>
-    </li>
-  </ul>
-  <!-- TABS POPUP HEADER -->
-  <div class="tab-content mt-1 " id="myTabContent">
-    <div class="tab-pane fade show active" id="base" role="tabpanel" aria-labelledby="base">
-    <div class="divTable unstyledTable">
-  <div class="divTableBody">
-  <div class="divTableRow">
-  <div class="divTableCell">Height</div><div class="divTableCell">${pokemon['height'] / 10} m</div></div>
-  <div class="divTableRow">
-  <div class="divTableCell">Weight</div><div class="divTableCell">${pokemon['weight'] / 10} kg</div></div>
-  <div class="divTableRow">
-  <div class="divTableCell">Egg-Group</div><div class="divTableCell">${upperCase(pokemonDetail['egg_groups'][0]['name'])}</div></div>
-  <div class="divTableRow">
-  <div class="divTableCell">Color</div><div class="divTableCell">${upperCase(pokemonDetail['color']['name'])}</div></div>
+  <div class="card-item">
+      <img class="card-item-image" src='${pokemon['sprites']['other']['home']['front_default']}' alt="">
   </div>
+  <div class="card-item">
+      <div class="card-item-tab-header ">
+          <p class="card-item-tab" onclick="cardTab('flex','none','none')">tab1</p>
+          <p class="card-item-tab" onclick="cardTab('none','flex','none')">tab2</p>
+          <p class="card-item-tab" onclick="cardTab('none','none','flex')">tab3</p>
+      </div>
   </div>
-
-
-    
-    </div>
-    <div class="tab-pane fade" id="evolution" role="tabpanel" aria-labelledby="evolution">
-    <div style="width: 99%; height:400px">
-    <canvas id="barChart"></canvas>
+  <div class="card-item" >
+      <div  id="tab1" class="card-item-tab-content" style="display: flex;">
+          <div class="card-table" role="region" tabindex="0">
+              <table>
+                  <tbody>
+                  <tr>
+                      <td>Height</td>
+                      <td>${pokemon['height'] / 10} m</td>
+                  </tr>
+                  <tr>
+                      <td>Weight</td>
+                      <td>${pokemon['weight'] / 10} kg</td>
+                  </tr>
+                  <tr>
+                      <td>Egg Group</td>
+                      <td>${upperCase(pokemonDetail['egg_groups'][0]['name'])}</td>
+                  </tr>
+                  <tr>
+                      <td>Color</td>
+                      <td>${upperCase(pokemonDetail['color']['name'])}</td>
+                  </tr>
+                  </tbody>
+              </table>
+          </div>
+      </div>
+      <div  id="tab2" class="card-item-tab-content" style="display: none;">
+          <canvas id="barChart"></canvas>
+      </div>
+      <div  id="tab3" class="card-item-tab-content" style="display: none;">
+        <div id="moves" class="moves">
+      </div>
   </div>
-
-    </div>
-    <div class="tab-pane fade red height" id="moves" role="tabpanel" aria-labelledby="moves">
-      
-    </div>
-  </div>
-  </div>
-</div>`;
+</div>
+`;
   chart(i, allPokemons);
   pokemonMoves(i);
 }
@@ -211,7 +203,7 @@ function pokemonMoves(i) {
   for (let m = 0; m < pokemon.moves.length; m++) {
     const element = pokemon.moves[m]['move']['name'];
     move.innerHTML += /*html*/`
-    <li class="moves">${upperCase(element)}</li>
+    <div class="">${upperCase(element)}</div>
     `;
   }
 }
@@ -220,7 +212,7 @@ function tabs(about, stats, moves) {
   document.getElementById('about').style.display = `${about}`;
   console.log('klick');
   document.getElementById('stats').style.display = `${stats}`;
-  document.getElementById('moves').style.display = `${moves}`;
+  document.getElementById('movesTab').style.display = `${moves}`;
 }
 
 
