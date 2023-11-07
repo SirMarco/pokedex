@@ -64,11 +64,17 @@ function openCard(i) {
   let pokemonDetail = allPokemonsDetail[i];
   pokemonBig.innerHTML =/*html*/ `
   <div class="pokemonBox" onclick="doNotClose(event)">
-  <div class="card-container" onclick="doNotClose(event)">
+  <div class="arrow-left">
+    <a onclick="backImage(${i})">
+      <i class="material-icons icon"><</i>
+    </a>
+  </div>
+  <div class="card-container" >
             <div class="card-item-top ${pokemon['types'][0]['type']['name']}">
             <!-- <div class=""> -->
                 <div class="card-item-header ">
                     <div onclick="closeDialog()" class="cardClose">X</div>
+                    <!-- <div class="cardClose">X</div> -->
                     <h1 class="pokemonBoxHeadlineText">${upperCase(pokemon.name)}</h1>
                     <div class="cardLikeIconHeart"></div>
                 </div>
@@ -110,12 +116,17 @@ function openCard(i) {
                     </div>
                 </div>
                 <div  id="tab2" class="card-item-tab-content" style="display: none;">
-                    <canvas id="barChart"></canvas>
+                    <canvas id="barChart" height="100%" width="100%"></canvas>
                 </div>
                 <div  id="tab3" class="card-item-tab-content card-item-tab-content-move" style="display: none;">
                 </div>
             </div>
         </div>
+  </div>
+  <div class="arrow-right">
+    <a onclick="forwardImage(${i})">
+      <i class="material-icons icon">></i>
+    </a>
   </div>`;
   chart(i, allPokemons);
   pokemonMoves(i);
@@ -140,6 +151,25 @@ function cardTab(tab1, tab2, tab3) {
 }
 
 
+function backImage(i) {
+  if (i > 0) {
+    i--;
+  } else {
+    i = allPokemons.length - 1;
+  }
+
+  openCard(i);
+}
+
+function forwardImage(i) {
+  if (i < allPokemons.length - 1) {
+    i++;
+  } else {
+    i = 0;
+  }
+
+  openCard(i);
+}
 
 
 

@@ -107,7 +107,7 @@ header {
 .popup {
   backdrop-filter: blur(130px);
   /* background-color: lightgray; */
-  z-index: 999;
+  /* z-index: 999; */
   position: fixed;
   top: 0;
   right: 0;
@@ -115,7 +115,28 @@ header {
   left: 0;
   display: flex;
   justify-content: center;
-  padding: 0 10px 0 10px;
+  /* padding: 0 10px 0 10px; */
+}
+
+/*ARROW*/
+
+.arrow-left {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  z-index: 99999;
+  cursor: pointer;
+  color: #41739D;
+}
+
+
+.arrow-right {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  z-index: 99999;
+  cursor: pointer;
+  color: #41739D;
 }
 
 /* POPUP CARD*/
@@ -232,7 +253,7 @@ header {
 /*TABLE TAB*/
 .card-table {
   overflow: auto;
-  width: 100%;
+  /* width: 100%; */
 }
 
 .card-table table {
@@ -263,4 +284,29 @@ header {
   width: 50px;
 }
 
-/*TABLE TAB*/
+td:first-child {
+  font-weight: bold;
+  text-align: end;
+}
+
+@media (max-width: 600px) {
+  .arrow-left {
+    position: absolute;
+    top: 90%;
+    left: 50px;
+    z-index: 99999;
+    cursor: pointer;
+    color: #41739D;
+  }
+
+
+  .arrow-right {
+    position: absolute;
+    top: 90%;
+    right: 50px;
+    z-index: 99999;
+    cursor: pointer;
+    color: #41739D;
+  }
+
+}
