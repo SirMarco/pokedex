@@ -107,7 +107,7 @@ header {
 .popup {
   backdrop-filter: blur(130px);
   /* background-color: lightgray; */
-  /* z-index: 999; */
+  z-index: 10;
   position: fixed;
   top: 0;
   right: 0;
@@ -124,9 +124,12 @@ header {
   position: absolute;
   top: 50%;
   left: 10px;
-  z-index: 99999;
+  z-index: 99;
   cursor: pointer;
   color: #41739D;
+  width: 40px;
+  padding-top: 40px;
+  padding-bottom: 40px;
 }
 
 
@@ -134,9 +137,12 @@ header {
   position: absolute;
   top: 50%;
   right: 10px;
-  z-index: 99999;
+  z-index: 99;
   cursor: pointer;
   color: #41739D;
+  width: 40px;
+  padding-top: 40px;
+  padding-bottom: 40px;
 }
 
 /* POPUP CARD*/
@@ -253,6 +259,7 @@ header {
 /*TABLE TAB*/
 .card-table {
   overflow: auto;
+  padding-top: 8%;
   /* width: 100%; */
 }
 
@@ -307,6 +314,14 @@ td:first-child {
     z-index: 99999;
     cursor: pointer;
     color: #41739D;
+  }
+
+  .pokemonBox {
+    margin: 15px;
+  }
+
+  .card-table {
+    padding-top: 12%;
   }
 
 }

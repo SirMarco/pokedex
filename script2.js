@@ -60,74 +60,73 @@ function generateCards() {
 function openCard(i) {
   let pokemonBig = document.getElementById("openPokemonBox");
   document.getElementById("openPokemonBox").classList.remove("d-none");
+  showPopup();
   let pokemon = allPokemons[i];
   let pokemonDetail = allPokemonsDetail[i];
   pokemonBig.innerHTML =/*html*/ `
-  <div class="pokemonBox" onclick="doNotClose(event)">
-  <div class="arrow-left">
-    <a onclick="backImage(${i})">
+<div class="pokemonBox" onclick="doNotClose(event)">
+<!-- <div class="pokemonBox" > -->
+  <button class="arrow-left" onclick="backImage(${i})">
       <i class="material-icons icon"><</i>
-    </a>
-  </div>
-  <div class="card-container" >
-            <div class="card-item-top ${pokemon['types'][0]['type']['name']}">
-            <!-- <div class=""> -->
-                <div class="card-item-header ">
-                    <div onclick="closeDialog()" class="cardClose">X</div>
-                    <!-- <div class="cardClose">X</div> -->
-                    <h1 class="pokemonBoxHeadlineText">${upperCase(pokemon.name)}</h1>
-                    <div class="cardLikeIconHeart"></div>
-                </div>
-            <!-- </div> -->
-            <div class="card-item">
-                <img class="card-item-image" src='${pokemon['sprites']['other']['home']['front_default']}' alt="">
-            </div>
-            </div>
-            <div class="card-item">
-                <div class="card-item-tab-header">
-                    <p class="card-item-tab" onclick="cardTab('flex','none','none')">ABOUT</p>
-                    <p class="card-item-tab" onclick="cardTab('none','flex','none')">BASE STATS</p>
-                    <p class="card-item-tab" onclick="cardTab('none','none','flex')">MOVES</p>
-                </div>
-            </div>
-            <div class="card-item" >
-                <div  id="tab1" class="card-item-tab-content" style="display: flex;">
-                    <div class="card-table" role="region" tabindex="0">
-                        <table>
-                            <tbody>
-                            <tr>
-                                <td>Height</td>
-                                <td>${pokemon['height'] / 10} m</td>
-                            </tr>
-                            <tr>
-                                <td>Weight</td>
-                                <td>${pokemon['weight'] / 10} kg</td>
-                            </tr>
-                            <tr>
-                                <td>Egg Group</td>
-                                <td>${upperCase(pokemonDetail['egg_groups'][0]['name'])}</td>
-                            </tr>
-                            <tr>
-                                <td>Color</td>
-                                <td>${upperCase(pokemonDetail['color']['name'])}</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div  id="tab2" class="card-item-tab-content" style="display: none;">
-                    <canvas id="barChart" height="100%" width="100%"></canvas>
-                </div>
-                <div  id="tab3" class="card-item-tab-content card-item-tab-content-move" style="display: none;">
-                </div>
-            </div>
+  </button>
+  <div class="card-container">
+  <!-- <div class="card-container" onclick="doNotClose(event)"> -->
+    <div class="card-item-top ${pokemon['types'][0]['type']['name']}">
+      <!-- <div class=""> -->
+      <div class="card-item-header ">
+        <div onclick="closeDialog()" class="cardClose">X</div>
+        <!-- <div class="cardClose">X</div> -->
+        <h1 class="pokemonBoxHeadlineText">${upperCase(pokemon.name)}</h1>
+        <div class="cardLikeIconHeart"></div>
+      </div>
+      <!-- </div> -->
+      <div class="card-item">
+        <img class="card-item-image" src='${pokemon['sprites']['other']['home']['front_default']}' alt="">
+      </div>
+    </div>
+    <div class="card-item">
+      <div class="card-item-tab-header">
+        <p class="card-item-tab" onclick="cardTab('flex','none','none')">ABOUT</p>
+        <p class="card-item-tab" onclick="cardTab('none','flex','none')">BASE STATS</p>
+        <p class="card-item-tab" onclick="cardTab('none','none','flex')">MOVES</p>
+      </div>
+    </div>
+    <div class="card-item">
+      <div id="tab1" class="card-item-tab-content" style="display: flex;">
+        <div class="card-table" role="region" tabindex="0">
+          <table>
+            <tbody>
+              <tr>
+                <td>Height</td>
+                <td>${pokemon['height'] / 10} m</td>
+              </tr>
+              <tr>
+                <td>Weight</td>
+                <td>${pokemon['weight'] / 10} kg</td>
+              </tr>
+              <tr>
+                <td>Egg Group</td>
+                <td>${upperCase(pokemonDetail['egg_groups'][0]['name'])}</td>
+              </tr>
+              <tr>
+                <td>Color</td>
+                <td>${upperCase(pokemonDetail['color']['name'])}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
+      </div>
+      <div id="tab2" class="card-item-tab-content" style="display: none;">
+        <canvas id="barChart" height="100%" width="100%"></canvas>
+      </div>
+      <div id="tab3" class="card-item-tab-content card-item-tab-content-move" style="display: none;">
+      </div>
+    </div>
   </div>
-  <div class="arrow-right">
-    <a onclick="forwardImage(${i})">
+  <button class="arrow-right" onclick="forwardImage(${i})">
       <i class="material-icons icon">></i>
-    </a>
-  </div>`;
+  </button>
+</div>`;
   chart(i, allPokemons);
   pokemonMoves(i);
 }
@@ -150,6 +149,15 @@ function cardTab(tab1, tab2, tab3) {
   document.getElementById('tab3').style.display = `${tab3}`;
 }
 
+function showPopup() {
+  document.body.style.overflow = 'hidden';
+}
+
+function closePopup() {
+  document.body.style.overflow = '';
+}
+
+
 
 function backImage(i) {
   if (i > 0) {
@@ -170,45 +178,6 @@ function forwardImage(i) {
 
   openCard(i);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 async function searchPokemon() {
@@ -300,6 +269,7 @@ function tabs(about, stats, moves) {
 
 function closeDialog() {
   document.getElementById("openPokemonBox").classList.add("d-none");
+  closePopup();
 }
 
 function doNotClose(event) {
