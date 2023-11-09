@@ -2,6 +2,7 @@ let allPokemons = [];
 let allPokemonsDetail = [];
 let searchPokemonArray = [];
 let searchPokemonArrayResult = [];
+let searchPokemonArrayResultDetail = [];
 let start = 1;
 let end = 10;
 
@@ -31,7 +32,8 @@ async function fetchPokemon(i) {
 async function fetchPokemonDetail(i) {
   let response = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${i}`);
   let responseAsJson = await response.json();
-  return responseAsJson;
+  searchPokemonArrayResultDetail.push(responseAsJson);
+  // return responseAsJson;
 }
 
 function generateCards() {
@@ -66,10 +68,12 @@ function openCard(i) {
   pokemonBig.innerHTML =/*html*/ `
 <div class="pokemonBox" onclick="doNotClose(event)">
 <!-- <div class="pokemonBox" > -->
-  <button class="arrow-left" onclick="backImage(${i})">
-      <i class="material-icons icon"><</i>
-  </button>
   <div class="card-container">
+  <button class="arrow-left-button ${pokemon['types'][0]['type']['name']}" onclick="backImage(${i}, allPokemons, openCard)">
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-arrow-right" viewBox="0 0 16 16">
+      <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+  </svg>
+  </button>
   <!-- <div class="card-container" onclick="doNotClose(event)"> -->
     <div class="card-item-top ${pokemon['types'][0]['type']['name']}">
       <!-- <div class=""> -->
@@ -122,10 +126,12 @@ function openCard(i) {
       <div id="tab3" class="card-item-tab-content card-item-tab-content-move" style="display: none;">
       </div>
     </div>
+    <button class="arrow-right-button ${pokemon['types'][0]['type']['name']}" onclick="forwardImage(${i}, allPokemons, openCard)">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-arrow-right" viewBox="0 0 16 16">
+      <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+    </svg>
+    </button>
   </div>
-  <button class="arrow-right" onclick="forwardImage(${i})">
-      <i class="material-icons icon">></i>
-  </button>
 </div>`;
   chart(i, allPokemons);
   pokemonMoves(i);
@@ -159,24 +165,24 @@ function closePopup() {
 
 
 
-function backImage(i) {
+function backImage(i, array, card) {
   if (i > 0) {
     i--;
   } else {
-    i = allPokemons.length - 1;
+    i = array.length - 1;
   }
 
-  openCard(i);
+  card(i);
 }
 
-function forwardImage(i) {
-  if (i < allPokemons.length - 1) {
+function forwardImage(i, array, card) {
+  if (i < array.length - 1) {
     i++;
   } else {
     i = 0;
   }
 
-  openCard(i);
+  card(i);
 }
 
 
@@ -190,11 +196,13 @@ async function searchPokemon() {
     cards.innerHTML = '';
     searchPokemonArray = [];
     searchPokemonArrayResult = [];
+    searchPokemonArrayResultDetail = [];
 
     for (let j = 0; j < data.results.length; j++) {
       let pokemon = data.results[j];
       if (pokemon.name.includes(search)) {
-        searchPokemonArray.push(pokemon.name); s
+        searchPokemonArray.push(pokemon.name);
+        fetchPokemonDetail(j);
       }
     }
     for (let k = 0; k < searchPokemonArray.length; k++) {
@@ -237,26 +245,79 @@ async function searchPokemon() {
 function openCardSearch(j) {
   let pokemonBig = document.getElementById("openPokemonBox");
   document.getElementById("openPokemonBox").classList.remove("d-none");
+  showPopup()
   let pokemon = searchPokemonArrayResult[j];
+  let pokemonDetail = searchPokemonArrayResultDetail[j];
   pokemonBig.innerHTML =/*html*/`
-  <div class="pokemonBox" onclick="doNotClose(event)">
-  <div class="pokemonBoxHeadline ${pokemon['types'][0]['type']['name']}">
-    <div class="pokemonBoxHeadlineText">
-      <div onclick="closeDialog()" class="cardClose">Close</div>
-      <div>
+<div class="pokemonBox" onclick="doNotClose(event)">
+<!-- <div class="pokemonBox" > -->
+  <div class="card-container">
+  <button class="arrow-left-button ${pokemon['types'][0]['type']['name']}" onclick="backImage(${j}, searchPokemonArrayResult, openCardSearch)">
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-arrow-right" viewBox="0 0 16 16">
+      <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+  </svg>
+  </button>
+  <!-- <div class="card-container" onclick="doNotClose(event)"> -->
+    <div class="card-item-top ${pokemon['types'][0]['type']['name']}">
+      <!-- <div class=""> -->
+      <div class="card-item-header ">
+        <div onclick="closeDialog()" class="cardClose">X</div>
+        <!-- <div class="cardClose">X</div> -->
         <h1 class="pokemonBoxHeadlineText">${upperCase(pokemon.name)}</h1>
+        <div class="cardLikeIconHeart"></div>
       </div>
-      <div class="cardLikeIconHeart"></div>
+      <!-- </div> -->
+      <div class="card-item">
+        <img class="card-item-image" src='${pokemon['sprites']['other']['home']['front_default']}' alt="">
+      </div>
     </div>
-    <div class="pokemonBoxHeadlineImg">
-    <img src='${pokemon['sprites']['other']['home']['front_default']}'>
+    <div class="card-item">
+      <div class="card-item-tab-header">
+        <p class="card-item-tab" onclick="cardTab('flex','none','none')">ABOUT</p>
+        <p class="card-item-tab" onclick="cardTab('none','flex','none')">BASE STATS</p>
+        <p class="card-item-tab" onclick="cardTab('none','none','flex')">MOVES</p>
+      </div>
     </div>
-  </div>
-  <div class="pokemonBoxContent">
-    <div>Headline</div>
-    <div>Content</div>
+    <div class="card-item">
+      <div id="tab1" class="card-item-tab-content" style="display: flex;">
+        <div class="card-table" role="region" tabindex="0">
+          <table>
+            <tbody>
+              <tr>
+                <td>Height</td>
+                <td>${pokemon['height'] / 10} m</td>
+              </tr>
+              <tr>
+                <td>Weight</td>
+                <td>${pokemon['weight'] / 10} kg</td>
+              </tr>
+              <tr>
+              <td style="width: 19.6994%;">Egg Group</td>
+              <td style="width: 80.1049%;">${upperCase(pokemonDetail['egg_groups'][0]['name'])}</td>
+            </tr>
+            <tr>
+              <td style="width: 19.6994%;">Color</td>
+              <td style="width: 80.1049%;">${upperCase(pokemonDetail['color']['name'])}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div id="tab2" class="card-item-tab-content" style="display: none;">
+        <canvas id="barChart" height="100%" width="100%"></canvas>
+      </div>
+      <div id="tab3" class="card-item-tab-content card-item-tab-content-move" style="display: none;">
+      </div>
+    </div>
+    <button class="arrow-right-button ${pokemon['types'][0]['type']['name']}" onclick="forwardImage(${j}, searchPokemonArrayResult, openCardSearch)">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-arrow-right" viewBox="0 0 16 16">
+      <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+    </svg>
+    </button>
   </div>
 </div>`;
+  chart(j, searchPokemonArrayResult);
+  pokemonMoves(j);
 }
 
 

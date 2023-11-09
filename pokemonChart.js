@@ -2,7 +2,6 @@
 function chart(i, allPokemons) {
 
   let pokemon = allPokemons[i];
-  console.log(pokemon);
   var data = {
     labels: ["HP", "Attack", "Defense", "SP-Attack", "SP-Defense", "Speed"],
     datasets: [{
@@ -20,7 +19,6 @@ function chart(i, allPokemons) {
   };
 
   var ctx = document.getElementById("barChart").getContext('2d');
-  console.log(ctx);
   var myChart = new Chart(ctx, {
     plugins: [ChartDataLabels],
     type: 'bar',

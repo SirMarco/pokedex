@@ -106,7 +106,6 @@ header {
 /* POPUP*/
 .popup {
   backdrop-filter: blur(130px);
-  /* background-color: lightgray; */
   z-index: 10;
   position: fixed;
   top: 0;
@@ -115,34 +114,41 @@ header {
   left: 0;
   display: flex;
   justify-content: center;
-  /* padding: 0 10px 0 10px; */
 }
 
 /*ARROW*/
-
-.arrow-left {
+.arrow-left-button {
   position: absolute;
   top: 50%;
   left: 10px;
-  z-index: 99;
   cursor: pointer;
-  color: #41739D;
-  width: 40px;
-  padding-top: 40px;
-  padding-bottom: 40px;
+  border-radius: 4px;
+  padding: 8px 16px;
+  border: none;
+  text-align: center;
+  text-decoration: none;
 }
 
+.arrow-left-button svg {
+  width: 25px;
+  height: 25px;
+}
 
-.arrow-right {
+.arrow-right-button {
   position: absolute;
   top: 50%;
   right: 10px;
-  z-index: 99;
   cursor: pointer;
-  color: #41739D;
-  width: 40px;
-  padding-top: 40px;
-  padding-bottom: 40px;
+  border-radius: 4px;
+  padding: 8px 16px;
+  border: none;
+  text-align: center;
+  text-decoration: none;
+}
+
+.arrow-right-button svg {
+  width: 25px;
+  height: 25px;
 }
 
 /* POPUP CARD*/
@@ -218,7 +224,6 @@ header {
 .card-item-tab {
   cursor: pointer;
   font-weight: bold;
-  /* background-color: grey; */
   border-bottom: 2px solid white;
   padding: 8px 20px;
   border-radius: 6px;
@@ -233,10 +238,11 @@ header {
   display: flex;
   flex-wrap: wrap;
   overflow-x: hidden;
-  /* padding: 4px; */
   padding: 0px 10px;
-  /* height: 130px; */
   color: white;
+  justify-content: center;
+  align-items: center;
+
 }
 
 .card-item-tab-content::-webkit-scrollbar {
@@ -245,12 +251,10 @@ header {
 
 .card-item-tab-content-move {
   display: none;
-  /* color: red; */
   height: 220px
 }
 
 .card-item-move {
-  /* background-color: wheat; */
   margin: 2px;
   color: black;
 
@@ -260,7 +264,7 @@ header {
 .card-table {
   overflow: auto;
   padding-top: 8%;
-  /* width: 100%; */
+  padding-bottom: 8%;
 }
 
 .card-table table {
@@ -296,8 +300,8 @@ td:first-child {
   text-align: end;
 }
 
-@media (max-width: 600px) {
-  .arrow-left {
+@media (max-width: 640px) {
+  .arrow-left-button {
     position: absolute;
     top: 90%;
     left: 50px;
@@ -307,7 +311,7 @@ td:first-child {
   }
 
 
-  .arrow-right {
+  .arrow-right-button {
     position: absolute;
     top: 90%;
     right: 50px;
@@ -318,10 +322,6 @@ td:first-child {
 
   .pokemonBox {
     margin: 15px;
-  }
-
-  .card-table {
-    padding-top: 12%;
   }
 
 }
