@@ -351,8 +351,9 @@ function modifyId(number) {
   return `#` + numToString.padStart(4, '0');
 }
 
-function loadMore() {
+async function loadMore() {
   start += 10;
   end += 10;
-  init();
+  await init();
+  window.scrollTo(0, document.body.scrollHeight);
 }

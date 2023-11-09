@@ -51,6 +51,14 @@ header {
   color: white;
 }
 
+.loadMore {
+  display: flex;
+  justify-content: center;
+  height: 50px;
+  margin-top: 16px;
+}
+
+
 .pokemonCard:hover {
   transform: translateY(-6px);
 }
