@@ -2,8 +2,11 @@ let allPokemons = [];
 let allPokemonsDetail = [];
 let searchPokemonArray = [];
 let searchPokemonArrayResult = [];
+let searchPokemonArrayResultDetail = [];
 let start = 1;
-let end = 10;
+let end = 20;
+const noresultsModal = new bootstrap.Modal(document.getElementById("noresults"));
+const errorSearchModal = new bootstrap.Modal(document.getElementById("errorSearch"));
 
 async function init() {
   for (let i = start; i <= end; i++) {
@@ -14,12 +17,13 @@ async function init() {
       let responseDetailAsJson = await responseDetail.json();
       allPokemons.push(responseAsJson);
       allPokemonsDetail.push(responseDetailAsJson);
-      generateCards();
+      generateOverview();
     } catch {
       errorFunction();
       break;
     }
   }
+  spinnerHide();
 }
 
 async function fetchPokemon(i) {
@@ -31,30 +35,43 @@ async function fetchPokemon(i) {
 async function fetchPokemonDetail(i) {
   let response = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${i}`);
   let responseAsJson = await response.json();
-  return responseAsJson;
+  searchPokemonArrayResultDetail.push(responseAsJson);
 }
 
+function generateOverview() {
+  let pokemonName = document.getElementById('cards');
+  pokemonName.innerHTML = ``;
+  for (let i = 0; i < allPokemons.length; i++) {
+    let element = allPokemons[i];
+    pokemonName.innerHTML += generateCardsHTML(i, element);
+  }
+}
 
 async function searchPokemon() {
+  spinner();
   let search = document.getElementById('inputValue').value.toLowerCase();
+  console.log(search);
   let cards = document.getElementById('cards');
   let response = await fetch(`https://pokeapi.co/api/v2/pokemon/?limit=1000`);
   try {
     let data = await response.json();
+    console.log(data);
     let results = '';
+    loadMoreHide();
     cards.innerHTML = '';
     searchPokemonArray = [];
     searchPokemonArrayResult = [];
+    searchPokemonArrayResultDetail = [];
 
     for (let j = 0; j < data.results.length; j++) {
       let pokemon = data.results[j];
       if (pokemon.name.includes(search)) {
-        searchPokemonArray.push(pokemon.name); s
+        searchPokemonArray.push(pokemon.name);
+        fetchPokemonDetail(j);
       }
     }
     for (let k = 0; k < searchPokemonArray.length; k++) {
       const element = searchPokemonArray[k];
-      // console.log(element);
       searchPokemonArrayResult.push(await fetchPokemon(element));
       results +=  /*html*/ `
        <div id="card${[k + 1]}" class="pokemonCard ${searchPokemonArrayResult[k]['types'][0]['type']['name']}" onclick="openCardSearch(${[k]})">
@@ -72,144 +89,68 @@ async function searchPokemon() {
     </div>
     </div>`;
     }
-
-
+    spinnerHide();
     if (results === '') {
-      results = '<li>Kein passendes Pokémon gefunden.</li>';
+      results = '<h2>Leider wurde kein Pokemon gefunden</h2>';
+      noresultsModal.show();
     }
     cards.innerHTML = results;
   }
   catch (error) {
-    cards.innerHTML = '<li>suche aktuell nicht möglich</li>';
+    results = errorSearchModal.show();
     console.log('fehler in der suche' + error);
-  }
-}
-
-
-function generateCards() {
-  let pokemonName = document.getElementById('cards');
-  pokemonName.innerHTML = ``;
-  for (let i = 0; i < allPokemons.length; i++) {
-    let element = allPokemons[i];
-    pokemonName.innerHTML += /*html*/`
-    <div id="card${[i + 1]}" class="pokemonCard ${element['types'][0]['type']['name']}" onclick="openCard(${[i]})">
-      <div class="pokemonCardTop">
-        <h1 class="mt-2 text-white">${upperCase(element['name'])}</h1>
-        <p class="mt-2 text-white">${modifyId((element['id']))}</p>
-      </div>
-    <div class="pokemonCardBottom">
-      <div class="pokemonCardBottom-1">
-        <p class="${element['types'][0]['type']['name']}-text">${upperCase(element['types']['0']['type']['name'])}</p>
-      </div>
-      <div class="pokemonCardBottom-2">
-        <img src='${element['sprites']['other']['dream_world']['front_default']}'>
-      </div>
-    </div>
-    </div>`;
   }
 }
 
 function openCard(i) {
   let pokemonBig = document.getElementById("openPokemonBox");
   document.getElementById("openPokemonBox").classList.remove("d-none");
+  showPopup();
   let pokemon = allPokemons[i];
   let pokemonDetail = allPokemonsDetail[i];
-  pokemonBig.innerHTML =/*html*/ `
-  <div class="pokemonBox" onclick="doNotClose(event)">
-    <div class="pokemonBoxHeadline ${pokemon['types'][0]['type']['name']}">
-      <div class="pokemonBoxHeadlineText">
-        <div onclick="closeDialog()" class="cardClose"></div>
-        <div>
-          <h1 class="pokemonBoxHeadlineText">${upperCase(pokemon.name)}</h1>
-        </div>
-        <div class="cardLikeIconHeart"></div>
-      </div>
-      <div class="pokemonBoxHeadlineImg">
-        <img src='${pokemon['sprites']['other']['home']['front_default']}'>
-      </div>
-    </div>
-    <div class="pokemonBoxContent">
-      <div class="pokemonBoxContentHeader">
-        <div onclick="tabs('flex', 'none', 'none')">About</div>
-        <div onclick="tabs('none', 'flex', 'none')">Base Stats</div>
-        <div onclick="tabs('none', 'none', 'flex')">Moves</div>
-      </div>
-      <div id="about" style="display: flex;">
-        <table style="width: 99%;">
-          <tbody>
-            <tr>
-              <td style="width: 19.6994%;">Height</td>
-              <td style="width: 80.1049%;">${pokemon['height'] / 10} m</td>
-            </tr>
-            <tr>
-              <td style="width: 19.6994%;">Weight</td>
-              <td style="width: 80.1049%;">${pokemon['weight'] / 10} kg</td>
-            </tr>
-            <tr>
-              <td style="width: 19.6994%;">Egg Group;</td>
-              <td style="width: 80.1049%;">${upperCase(pokemonDetail['egg_groups'][0]['name'])}</td>
-            </tr>
-            <tr>
-              <td style="width: 19.6994%;">Color</td>
-              <td style="width: 80.1049%;">${upperCase(pokemonDetail['color']['name'])}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div id="stats" style="display: none;">
-        <div style="width: 99%; height:400px">
-          <canvas id="barChart"></canvas>
-        </div>
-      </div>
-        <div id="movesTab" style="display: none"  class="movesOverview">
-        <div id="moves" class="moves">
-
-        </div>
-        </div>
-      </div>
-    </div>
-  </div>
-`;
+  pokemonBig.innerHTML = generateCardHTML(i, pokemon, pokemonDetail);
   chart(i, allPokemons);
   pokemonMoves(i);
 }
 
-function openCardSearch(j) {
-  let pokemonBig = document.getElementById("openPokemonBox");
-  document.getElementById("openPokemonBox").classList.remove("d-none");
-  let pokemon = searchPokemonArrayResult[j];
-  pokemonBig.innerHTML =/*html*/`
-  <div class="pokemonBox" onclick="doNotClose(event)">
-  <div class="pokemonBoxHeadline ${pokemon['types'][0]['type']['name']}">
-    <div class="pokemonBoxHeadlineText">
-      <div onclick="closeDialog()" class="cardClose">Close</div>
-      <div>
-        <h1 class="pokemonBoxHeadlineText">${upperCase(pokemon.name)}</h1>
-      </div>
-      <div class="cardLikeIconHeart"></div>
-    </div>
-    <div class="pokemonBoxHeadlineImg">
-    <img src='${pokemon['sprites']['other']['home']['front_default']}'>
-    </div>
-  </div>
-  <div class="pokemonBoxContent">
-    <div>Headline</div>
-    <div>Content</div>
-  </div>
-</div>`;
-}
-
-
 function pokemonMoves(i) {
-  let move = document.getElementById('moves');
+  let move = document.getElementById('tab3');
   let pokemon = allPokemons[i];
   for (let m = 0; m < pokemon.moves.length; m++) {
     const element = pokemon.moves[m]['move']['name'];
-    move.innerHTML += /*html*/`
-    <div class="">${upperCase(element)}</div>
-    `;
+    move.innerHTML += generateCardMovesHTML(element);
   }
 }
+
+function cardTab(tab1, tab2, tab3) {
+  document.getElementById('tab1').style.display = `${tab1}`;
+  document.getElementById('tab2').style.display = `${tab2}`;
+  document.getElementById('tab3').style.display = `${tab3}`;
+}
+
+function showPopup() {
+  document.body.style.overflow = 'hidden';
+  document.getElementById("topButton").style.display = "none";
+}
+
+function closePopup() {
+  document.body.style.overflow = '';
+  document.getElementById("topButton").style.display = "block";
+}
+
+
+
+function openCardSearch(j) {
+  let pokemonBig = document.getElementById("openPokemonBox");
+  document.getElementById("openPokemonBox").classList.remove("d-none");
+  showPopup()
+  let pokemon = searchPokemonArrayResult[j];
+  let pokemonDetail = searchPokemonArrayResultDetail[j];
+  pokemonBig.innerHTML = generateCardSearchHTML(j, pokemon, pokemonDetail);
+  chart(j, searchPokemonArrayResult);
+  pokemonMoves(j);
+}
+
 
 function tabs(about, stats, moves) {
   document.getElementById('about').style.display = `${about}`;
@@ -218,26 +159,37 @@ function tabs(about, stats, moves) {
   document.getElementById('movesTab').style.display = `${moves}`;
 }
 
+function backCard(i, array, card) {
+  if (i > 0) {
+    i--;
+  } else {
+    i = array.length - 1;
+  }
+  card(i);
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+function forwardCard(i, array, card) {
+  if (i < array.length - 1) {
+    i++;
+  } else {
+    i = 0;
+  }
+  card(i);
+}
 
 function closeDialog() {
   document.getElementById("openPokemonBox").classList.add("d-none");
+  closePopup();
+}
+
+function loadMoreHide() {
+  document.getElementById('loadMore').style.display = 'none';
+}
+function spinner() {
+  document.getElementById('spinner').style.display = "flex";
+}
+function spinnerHide() {
+  document.getElementById('spinner').style.display = "none";
 }
 
 function doNotClose(event) {
@@ -254,12 +206,12 @@ function upperCase(string) {
 
 function modifyId(number) {
   let numToString = number.toString();
-  // console.log(numToString);
   return `#` + numToString.padStart(4, '0');
 }
 
-function loadMore() {
+async function loadMore() {
   start += 10;
   end += 10;
-  init();
+  await init();
+  window.scrollTo(0, document.body.scrollHeight);
 }
