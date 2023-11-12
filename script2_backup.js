@@ -67,7 +67,7 @@ function openCard(i) {
   pokemonBig.innerHTML =/*html*/ `
 <div class="pokemonBox" onclick="doNotClose(event)">
   <div class="card-container">
-  <button class="arrow-left-button ${pokemon['types'][0]['type']['name']}" onclick="backImage(${i}, allPokemons, openCard)">
+  <button class="arrow-left-button ${pokemon['types'][0]['type']['name']}" onclick="backCard(${i}, allPokemons, openCard)">
   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-arrow-right" viewBox="0 0 16 16">
       <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
   </svg>
@@ -120,7 +120,7 @@ function openCard(i) {
       <div id="tab3" class="card-item-tab-content card-item-tab-content-move" style="display: none;">
       </div>
     </div>
-    <button class="arrow-right-button ${pokemon['types'][0]['type']['name']}" onclick="forwardImage(${i}, allPokemons, openCard)">
+    <button class="arrow-right-button ${pokemon['types'][0]['type']['name']}" onclick="forwardCard(${i}, allPokemons, openCard)">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-arrow-right" viewBox="0 0 16 16">
       <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
     </svg>
@@ -159,7 +159,7 @@ function closePopup() {
 
 
 
-function backImage(i, array, card) {
+function backCard(i, array, card) {
   if (i > 0) {
     i--;
   } else {
@@ -169,7 +169,7 @@ function backImage(i, array, card) {
   card(i);
 }
 
-function forwardImage(i, array, card) {
+function forwardCard(i, array, card) {
   if (i < array.length - 1) {
     i++;
   } else {
@@ -246,7 +246,7 @@ function openCardSearch(j) {
 <div class="pokemonBox" onclick="doNotClose(event)">
 <!-- <div class="pokemonBox" > -->
   <div class="card-container">
-  <button class="arrow-left-button ${pokemon['types'][0]['type']['name']}" onclick="backImage(${j}, searchPokemonArrayResult, openCardSearch)">
+  <button class="arrow-left-button ${pokemon['types'][0]['type']['name']}" onclick="backCard(${j}, searchPokemonArrayResult, openCardSearch)">
   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-arrow-right" viewBox="0 0 16 16">
       <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
   </svg>
@@ -303,7 +303,7 @@ function openCardSearch(j) {
       <div id="tab3" class="card-item-tab-content card-item-tab-content-move" style="display: none;">
       </div>
     </div>
-    <button class="arrow-right-button ${pokemon['types'][0]['type']['name']}" onclick="forwardImage(${j}, searchPokemonArrayResult, openCardSearch)">
+    <button class="arrow-right-button ${pokemon['types'][0]['type']['name']}" onclick="forwardCard(${j}, searchPokemonArrayResult, openCardSearch)">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-arrow-right" viewBox="0 0 16 16">
       <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
     </svg>

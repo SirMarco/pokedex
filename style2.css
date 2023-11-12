@@ -1,6 +1,39 @@
 body {
   margin: 0;
   font-family: 'Open Sans', sans-serif;
+  background: linear-gradient(-75deg, #78C850, #6890F0, #98D8D8, #A040A0);
+  background-size: 400% 400%;
+  scroll-behavior: smooth;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 16px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: white;
+  border-radius: 10px;
+  max-height: 2px;
+}
+
+::-webkit-scrollbar-track {
+  background: linear-gradient(to bottom,
+      #ff0000,
+      #0000ff);
 }
 
 h1 {
@@ -19,15 +52,121 @@ p {
 main {
   max-width: 1400px;
   margin: 0 auto;
+  padding-top: 60px;
+}
+
+
+#topButton {
+  display: none;
+  position: fixed;
+  bottom: 92px;
+  right: 10px;
+  z-index: 99;
+  font-size: 18px;
+  border: none;
+  outline: none;
+  background: linear-gradient(to right, #ff0000, #0000ff);
+  color: white;
+  cursor: pointer;
+  border-radius: 50px;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+}
+
+#topButton:hover {
+
+  background: red;
+}
+
+#topButton svg {
+  width: 25px;
+  height: 25px;
 }
 
 header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 50px;
-  margin: 0 16px 0 16px;
+  height: 60px;
+  margin: 0;
+  padding: 0 16px 0 16px;
+  background: linear-gradient(to right, #ff0000, #0000ff);
 }
+
+header img {
+  height: 45px;
+}
+
+.searchInput {
+  padding: 8px;
+  border: 3px solid #ff0000;
+  width: 250px;
+  border-radius: 25px;
+  background-color: transparent;
+  color: white;
+  outline: none;
+}
+
+.searchButton {
+  padding: 8px;
+  border: 3px solid #ff0000;
+  width: 120px;
+  border-radius: 25px;
+  background-color: transparent;
+  color: white;
+  outline: none;
+}
+
+::placeholder {
+  color: white;
+  opacity: 1;
+}
+
+/*LOADING*/
+
+.spinner {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  backdrop-filter: blur(130px);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinner img {
+  height: 50px;
+  width: 50px;
+  animation: 3000 infinite;
+}
+
+.spinner h1 {
+  background: linear-gradient(to right, #ff0000, #0000ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/*MODAL SEARCH*/
+.modal-content {
+  background: linear-gradient(-75deg, #78C850, #6890F0, #98D8D8, #A040A0);
+  text-color: white;
+}
+
+.modal-dialog {
+  top: 20%;
+}
+
 
 /*Overview Cards*/
 
@@ -49,6 +188,7 @@ header {
   border-radius: 8px;
   cursor: pointer;
   color: white;
+  border: 1px solid white;
 }
 
 .loadMore {
@@ -56,8 +196,18 @@ header {
   justify-content: center;
   height: 50px;
   margin-top: 16px;
+
 }
 
+.loadMoreButton {
+  padding: 4px;
+  border: 3px solid #ff0000;
+  width: 120px;
+  border-radius: 25px;
+  background: linear-gradient(to right, #ff0000, #0000ff);
+  color: white;
+  outline: none;
+}
 
 .pokemonCard:hover {
   transform: translateY(-6px);
@@ -124,11 +274,26 @@ header {
   justify-content: center;
 }
 
+.popup-type {
+  background-color: white;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  color: black;
+  padding-left: 8px;
+  font-weight: bold;
+  font-size: 16px;
+  position: relative;
+  top: 20px;
+  width: 110px;
+}
+
 /*ARROW*/
 .arrow-left-button {
   position: absolute;
   top: 50%;
-  left: 10px;
+  left: 40px;
   cursor: pointer;
   border-radius: 4px;
   padding: 8px 16px;
@@ -145,7 +310,7 @@ header {
 .arrow-right-button {
   position: absolute;
   top: 50%;
-  right: 10px;
+  right: 40px;
   cursor: pointer;
   border-radius: 4px;
   padding: 8px 16px;
@@ -308,7 +473,7 @@ td:first-child {
   text-align: end;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 710px) {
   .arrow-left-button {
     position: absolute;
     top: 90%;
@@ -332,4 +497,35 @@ td:first-child {
     margin: 15px;
   }
 
+}
+
+@media (max-width: 560px) {
+  main {
+    padding-top: 100px;
+  }
+
+  header {
+    flex-direction: column;
+    height: 100px;
+    padding: 0;
+  }
+
+}
+
+@media (max-width: 400px) {
+  main {
+    padding-top: 100px;
+  }
+
+  .searchInput {
+    width: 200px;
+  }
+
+  .searchButton {
+    width: 80px;
+  }
+
+  .card-item-tab-header {
+    font-size: 12px;
+  }
 }
