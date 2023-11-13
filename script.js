@@ -5,18 +5,19 @@ let searchPokemonArrayResult = [];
 let searchPokemonArrayResultDetail = [];
 let start = 1;
 let end = 20;
-const noresultsModal = new bootstrap.Modal(document.getElementById("noresults"));
-const errorSearchModal = new bootstrap.Modal(document.getElementById("errorSearch"));
+let loadMoreBlock = false;
+const NORESULTSMODAL = new bootstrap.Modal(document.getElementById("noresults"));
+const ERRORSEARCHMODAL = new bootstrap.Modal(document.getElementById("errorSearch"));
 
 async function init() {
   for (let i = start; i <= end; i++) {
     try {
-      let response = await fetch(`https://pokeapi.co/api/v2/pokemon/${i}`);
-      let responseDetail = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${i}`);
-      let responseAsJson = await response.json();
-      let responseDetailAsJson = await responseDetail.json();
-      allPokemons.push(responseAsJson);
-      allPokemonsDetail.push(responseDetailAsJson);
+      const RESPONSE = await fetch(`https://pokeapi.co/api/v2/pokemon/${i}`);
+      const RESPONSEDETAIL = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${i}`);
+      const RESPONSEASJSON = await RESPONSE.json();
+      const RESPONSEDETAILASJSON = await RESPONSEDETAIL.json();
+      allPokemons.push(RESPONSEASJSON);
+      allPokemonsDetail.push(RESPONSEDETAILASJSON);
       generateOverview();
     } catch {
       errorFunction();
@@ -27,15 +28,16 @@ async function init() {
 }
 
 async function fetchPokemon(i) {
-  let response = await fetch(`https://pokeapi.co/api/v2/pokemon/${i}`);
-  let responseAsJson = await response.json();
-  return responseAsJson;
+  const RESPONSE = await fetch(`https://pokeapi.co/api/v2/pokemon/${i}`);
+  const RESPONSEASJSON = await RESPONSE.json();
+  return RESPONSEASJSON;
 }
 
 async function fetchPokemonDetail(i) {
-  let response = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${i}`);
-  let responseAsJson = await response.json();
-  searchPokemonArrayResultDetail.push(responseAsJson);
+  const RESPONSE = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${i}`);
+  const RESPONSEASJSON = await RESPONSE.json();
+  searchPokemonArrayResultDetail.push(RESPONSEASJSON);
+  console.log('hello' + i);
 }
 
 function generateOverview() {
@@ -48,42 +50,42 @@ function generateOverview() {
 }
 
 async function searchPokemon() {
-  spinner();
-  let search = document.getElementById('inputValue').value.toLowerCase();
-  let cards = document.getElementById('cards');
-  let response = await fetch(`https://pokeapi.co/api/v2/pokemon/?limit=1000`);
-  try {
-    let data = await response.json();
-    let results = '';
-    loadMoreHide();
-    cards.innerHTML = '';
-    searchPokemonArray = [];
-    searchPokemonArrayResult = [];
-    searchPokemonArrayResultDetail = [];
+  spinner(); // Load spinner
+  let search = document.getElementById('inputValue').value.toLowerCase(); // hole value aus Suchfeld und umwandeln in Kleinbuchstaben 
+  let cards = document.getElementById('cards'); //deklariert Variable Cards
+  const RESPONSE = await fetch(`https://pokeapi.co/api/v2/pokemon/?limit=1000`); // abrufen der Daten von der Pokedex API
+  try { // versuche auszuführen
+    let data = await RESPONSE.json(); // response als JSON umwandeln und als Variable data deklarieren
+    let results = ''; // leere Variable results deklarieren.
+    loadMoreHide(); // LoadMore Button verstecken
+    cards.innerHTML = ''; // Variable cards leeren
+    searchPokemonArray = []; // Array leeren für Suchergebnis (nur Name von Pokemon)
+    searchPokemonArrayResult = []; // Array leeren für JSON von Suchergebnis 
+    searchPokemonArrayResultDetail = []; // Array leeren für JSON von Suchergebnis - Details Pokemon
 
-    for (let j = 0; j < data.results.length; j++) {
-      let pokemon = data.results[j];
-      if (pokemon.name.includes(search)) {
-        searchPokemonArray.push(pokemon.name);
-        fetchPokemonDetail(j);
+    for (let j = 0; j < data.results.length; j++) { // durchläuft array x-mal(length array)
+      let pokemon = data.results[j]; // deklariert variable pokemon mit wert aus data.results[j]
+      if (pokemon.name.includes(search)) { // wenn value aus search input in pokemon.name enthalten ist
+        searchPokemonArray.push(pokemon.name); // push pokemon.name in Array searchPokemonArray
+        //fetchPokemonDetail(j);
       }
     }
-    for (let k = 0; k < searchPokemonArray.length; k++) {
-      const element = searchPokemonArray[k];
-      searchPokemonArrayResult.push(await fetchPokemon(element));
-      results += generateCardsSearchHTML(k, searchPokemonArrayResult);
+    for (let k = 0; k < searchPokemonArray.length; k++) { // durchläuft array mit result aus vorheriger for Schleife x-mal (lenght)
+      const element = searchPokemonArray[k]; // deklariert variable element mit wert aus array[k]
+      searchPokemonArrayResult.push(await fetchPokemon(element));// führe function fetchPokemon mit Parameter(name pokemon) aus und push json return in Array searchPokemonArrayResult
+      fetchPokemonDetail(element);  // hole weitere details zum Pokemon von anderem API Endpoint mit Parameter (name pokemon) und push Response in Array searchPokemonArrayResultDetail
+      results += generateCardsSearchHTML(k, searchPokemonArrayResult); // führe generateCardsSearchHTML aus und generiere Pokemoncard, weise value der varaible results zu.
     }
-    spinnerHide();
-    if (results === '') {
-      results = '<h2>Leider wurde kein Pokemon gefunden</h2>';
-      noresultsModal.show();
+    spinnerHide(); // blende spinner aus
+    if (results === '') { // wenn Sucheingabe nicht gefunden wird
+      NORESULTSMODAL.show(); // zeige Bootstrap Modal mit "Leider wurde kein Pokemon gefunden"
+      init(); // lade Startseite neu
     }
-    cards.innerHTML = results;
+    cards.innerHTML = results; // füge value aus results in HTML Tag mit der ID cards ein
   }
-  catch (error) {
-    results = errorSearchModal.show();
-    console.log('fehler in der suche' + error);
-    spinnerHide();
+  catch (error) { // wenn try error zurückgibt
+    spinnerHide(); // blende spinner aus
+    ERRORSEARCHMODAL.show(); // zeige Bootstrap Modal mit "Leider ist die API aktuell nicht erreichbar"
   }
 }
 
@@ -94,6 +96,7 @@ function openCard(i) {
   let pokemon = allPokemons[i];
   let pokemonDetail = allPokemonsDetail[i];
   pokemonBig.innerHTML = generateCardHTML(i, pokemon, pokemonDetail);
+  hideArrowLeft(i);
   chart(i, allPokemons);
   pokemonMoves(i);
 }
@@ -134,13 +137,6 @@ function openCardSearch(j) {
   pokemonMoves(j);
 }
 
-function tabs(about, stats, moves) {
-  document.getElementById('about').style.display = `${about}`;
-  console.log('klick');
-  document.getElementById('stats').style.display = `${stats}`;
-  document.getElementById('movesTab').style.display = `${moves}`;
-}
-
 function backCard(i, array, card) {
   if (i > 0) {
     i--;
@@ -157,6 +153,13 @@ function forwardCard(i, array, card) {
     i = 0;
   }
   card(i);
+}
+
+function hideArrowLeft(i) {
+  let arrowLeft = document.getElementById('arrowLeft0');
+  if (i == 0) {
+    arrowLeft.classList.add('d-none');
+  }
 }
 
 function closeDialog() {
@@ -192,8 +195,12 @@ function modifyId(number) {
 }
 
 async function loadMore() {
-  start += 10;
-  end += 10;
-  await init();
-  window.scrollTo(0, document.body.scrollHeight);
+  if (loadMoreBlock == false) {
+    loadMoreBlock = true;
+    start += 10;
+    end += 10;
+    await init();
+    window.scrollTo(0, document.body.scrollHeight);
+    loadMoreBlock = false;
+  }
 }

@@ -20,7 +20,7 @@ function generateCardHTML(i, pokemon, pokemonDetail) {
   return /*html*/ `
   <div class="pokemonBox" onclick="doNotClose(event)">
     <div class="card-container">
-    <button class="arrow-left-button ${pokemon['types'][0]['type']['name']}" onclick="backCard(${i}, allPokemons, openCard)">
+    <button class="arrow-left-button ${pokemon['types'][0]['type']['name']}" onclick="backCard(${i}, allPokemons, openCard)" id="arrowLeft${i}">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-arrow-right" viewBox="0 0 16 16">
         <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
     </svg>
@@ -68,8 +68,8 @@ function generateCardHTML(i, pokemon, pokemonDetail) {
             </table>
           </div>
         </div>
-        <div id="tab2" class="card-item-tab-content" style="display: none;">
-          <canvas id="barChart" height="100%" width="100%"></canvas>
+        <div id="tab2" class="card-item-tab-content" style="display: none; height: 210px";>
+          <canvas id="barChart" height="210px" width="100%"></canvas>
         </div>
         <div id="tab3" class="card-item-tab-content card-item-tab-content-move" style="display: none;">
         </div>

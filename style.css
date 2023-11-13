@@ -476,17 +476,16 @@ td:first-child {
 @media (max-width: 710px) {
   .arrow-left-button {
     position: absolute;
-    top: 90%;
+    top: 92%;
     left: 50px;
     z-index: 99999;
     cursor: pointer;
     color: #41739D;
   }
 
-
   .arrow-right-button {
     position: absolute;
-    top: 90%;
+    top: 92%;
     right: 50px;
     z-index: 99999;
     cursor: pointer;
@@ -496,7 +495,6 @@ td:first-child {
   .pokemonBox {
     margin: 15px;
   }
-
 }
 
 @media (max-width: 560px) {
