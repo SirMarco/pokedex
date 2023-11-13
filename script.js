@@ -50,12 +50,10 @@ function generateOverview() {
 async function searchPokemon() {
   spinner();
   let search = document.getElementById('inputValue').value.toLowerCase();
-  console.log(search);
   let cards = document.getElementById('cards');
   let response = await fetch(`https://pokeapi.co/api/v2/pokemon/?limit=1000`);
   try {
     let data = await response.json();
-    console.log(data);
     let results = '';
     loadMoreHide();
     cards.innerHTML = '';
@@ -73,21 +71,7 @@ async function searchPokemon() {
     for (let k = 0; k < searchPokemonArray.length; k++) {
       const element = searchPokemonArray[k];
       searchPokemonArrayResult.push(await fetchPokemon(element));
-      results +=  /*html*/ `
-       <div id="card${[k + 1]}" class="pokemonCard ${searchPokemonArrayResult[k]['types'][0]['type']['name']}" onclick="openCardSearch(${[k]})">
-       <div class="pokemonCardTop">
-        <h1 class="mt-2 text-white">${upperCase(searchPokemonArrayResult[k]['name'])}</h1>
-        <p class="mt-2 text-white">${modifyId((searchPokemonArrayResult[k]['id']))}</p>
-      </div>
-      <div class="pokemonCardBottom">
-      <div class="pokemonCardBottom-1">
-        <p class="${searchPokemonArrayResult[k]['types'][0]['type']['name']}-text">${upperCase(searchPokemonArrayResult[k]['types']['0']['type']['name'])}</p>
-      </div>
-      <div class="pokemonCardBottom-2">
-      <img src='${searchPokemonArrayResult[k]['sprites']['other']['home']['front_default']}'>
-      </div>
-    </div>
-    </div>`;
+      results += generateCardsSearchHTML(k, searchPokemonArrayResult);
     }
     spinnerHide();
     if (results === '') {
@@ -99,6 +83,7 @@ async function searchPokemon() {
   catch (error) {
     results = errorSearchModal.show();
     console.log('fehler in der suche' + error);
+    spinnerHide();
   }
 }
 
@@ -138,8 +123,6 @@ function closePopup() {
   document.getElementById("topButton").style.display = "block";
 }
 
-
-
 function openCardSearch(j) {
   let pokemonBig = document.getElementById("openPokemonBox");
   document.getElementById("openPokemonBox").classList.remove("d-none");
@@ -150,7 +133,6 @@ function openCardSearch(j) {
   chart(j, searchPokemonArrayResult);
   pokemonMoves(j);
 }
-
 
 function tabs(about, stats, moves) {
   document.getElementById('about').style.display = `${about}`;

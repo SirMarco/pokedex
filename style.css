@@ -508,6 +508,7 @@ td:first-child {
     flex-direction: column;
     height: 100px;
     padding: 0;
+    justify-content: space-evenly;
   }
 
 }

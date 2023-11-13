@@ -83,6 +83,26 @@ function generateCardHTML(i, pokemon, pokemonDetail) {
   </div>`;
 }
 
+function generateCardsSearchHTML(k, searchPokemonArrayResult) {
+  return /*html*/ `
+      <div id="card${[k + 1]}" class="pokemonCard ${searchPokemonArrayResult[k]['types'][0]['type']['name']}" onclick="openCardSearch(${[k]})">
+       <div class="pokemonCardTop">
+        <h1 class="mt-2 text-white">${upperCase(searchPokemonArrayResult[k]['name'])}</h1>
+        <p class="mt-2 text-white">${modifyId((searchPokemonArrayResult[k]['id']))}</p>
+      </div>
+      <div class="pokemonCardBottom">
+      <div class="pokemonCardBottom-1">
+        <p class="${searchPokemonArrayResult[k]['types'][0]['type']['name']}-text">${upperCase(searchPokemonArrayResult[k]['types']['0']['type']['name'])}</p>
+      </div>
+      <div class="pokemonCardBottom-2">
+      <img src='${searchPokemonArrayResult[k]['sprites']['other']['home']['front_default']}'>
+      </div>
+    </div>
+    </div>`;
+}
+
+
+
 function generateCardSearchHTML(j, pokemon, pokemonDetail) {
   return /*html*/`
   <div class="pokemonBox" onclick="doNotClose(event)">
